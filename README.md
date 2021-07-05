@@ -10,3 +10,6 @@ When the tool signals any input (keys/mouse) it locks your pc right away and tak
 
 
 Sheep stick together!! :sheep::sheep::sheep::sheep::sheep:
+
+
+It currently only works for Windows, but if somebody likes to also port it for MacOS.. send me a PR!!
