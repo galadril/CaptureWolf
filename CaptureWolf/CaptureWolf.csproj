@@ -1,33 +1,33 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0-windows7.0</TargetFramework>
-    <LangVersion>latest</LangVersion>
-	  <UseWindowsForms>true</UseWindowsForms>
-	  <PackageIcon>icon.jpg</PackageIcon>
-	  <PackageIconUrl />
-	  <PackageId>CaptureWolf</PackageId>
-	  <Authors>CaptureWolf</Authors>
-	  <Company>CaptureWolf</Company>
-	  <Product>CaptureWolf</Product>
-	  <ApplicationIcon>icon.ico</ApplicationIcon>
-  </PropertyGroup>
+	<PropertyGroup>
+		<OutputType>Exe</OutputType>
+		<TargetFramework>net8.0-windows7.0</TargetFramework>
+		<LangVersion>latest</LangVersion>
+		<UseWindowsForms>true</UseWindowsForms>
+		<PackageIcon>icon.jpg</PackageIcon>
+		<PackageIconUrl />
+		<PackageId>CaptureWolf</PackageId>
+		<Authors>CaptureWolf</Authors>
+		<Company>CaptureWolf</Company>
+		<Product>CaptureWolf</Product>
+		<ApplicationIcon>icon.ico</ApplicationIcon>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="AForge" Version="2.2.5" />
-    <PackageReference Include="AForge.Video" Version="2.2.5" />
-    <PackageReference Include="AForge.Video.DirectShow" Version="2.2.5" />
-    <PackageReference Include="MouseKeyHook" Version="5.7.1" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="AForge" Version="2.2.5" />
+		<PackageReference Include="AForge.Video" Version="2.2.5" />
+		<PackageReference Include="AForge.Video.DirectShow" Version="2.2.5" />
+		<PackageReference Include="MouseKeyHook" Version="5.7.1" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <None Update="screen\1.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="screen\2.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Update="screen\1.jpg">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+		<None Update="screen\2.jpg">
+			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
+	</ItemGroup>
 
 </Project>
