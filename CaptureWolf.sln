@@ -5,7 +5,9 @@ VisualStudioVersion = 17.9.34723.18
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaptureWolf", "CaptureWolf\CaptureWolf.csproj", "{62443213-58AB-48A3-8EE3-682E64BE2CDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CaptureWolf.UI", "CaptureWolf.Form\CaptureWolf.UI.csproj", "{A0B0A543-D979-41F1-8EAD-090DD785AF53}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaptureWolf.UI", "CaptureWolf.Form\CaptureWolf.UI.csproj", "{A0B0A543-D979-41F1-8EAD-090DD785AF53}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "CaptureWolf.Installer", "CaptureWolf.Installer\CaptureWolf.Installer.vdproj", "{3B82A65B-2EDD-460E-B3B9-6F835230FA0C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,8 @@ Global
 		{A0B0A543-D979-41F1-8EAD-090DD785AF53}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A0B0A543-D979-41F1-8EAD-090DD785AF53}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A0B0A543-D979-41F1-8EAD-090DD785AF53}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3B82A65B-2EDD-460E-B3B9-6F835230FA0C}.Debug|Any CPU.ActiveCfg = Debug
+		{3B82A65B-2EDD-460E-B3B9-6F835230FA0C}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
