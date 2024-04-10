@@ -1,9 +1,10 @@
-
 namespace CaptureWolf.UI;
 
-public partial class Form1 : Form
+public partial class frmCaptureWolf : Form
 {
-    public Form1()
+    public bool ImageSet = false;
+
+    public frmCaptureWolf()
     {
         InitializeComponent();
     }
@@ -12,28 +13,34 @@ public partial class Form1 : Form
     {
         Handler.PreventScreenSaver(true);
         Handler.MinimizeAll();
-        Handler.HookupEvents(onCapture);
+        Handler.HookupEvents(OnCapture);
     }
 
-    private bool onCapture(Image image)
+    private bool OnCapture(Image image)
     {
         pictureBox.Image = image;
+        ImageSet = true;
         explainLabel.Text = "We captured one!!!";
         return true;
     }
 
     private void pictureBox_Click(object sender, EventArgs e)
     {
-        if (pictureBox.Image == null)
+        if (!ImageSet || pictureBox.Image == null)
             return;
 
-        using SaveFileDialog sfd = new SaveFileDialog();
-        sfd.Filter = "Images|*.png;*.bmp;*.jpg";
+        using var sfd = new SaveFileDialog();
+        sfd.Filter = @"Images|*.png;*.bmp;*.jpg";
         sfd.DefaultExt = "png";
 
         if (sfd.ShowDialog() == DialogResult.OK)
         {
             pictureBox.Image.Save(sfd.FileName);
         }
+    }
+
+    private void btnStop_Click(object sender, EventArgs e)
+    {
+        Application.Exit();
     }
 }
