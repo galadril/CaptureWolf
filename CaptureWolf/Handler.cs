@@ -2,10 +2,7 @@
 using System;
 using System.Diagnostics;
 using System.Drawing;
-using System.Drawing.Imaging;
-using System.IO;
 using System.Runtime.InteropServices;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -21,6 +18,9 @@ public static class Handler
     private static bool _onlyOnce;
     private static WebCam camera;
     private static Func<Image, bool> onCapture;
+    public const byte KEYEVENTF_KEYUP = 0x02;
+    public const byte VK_LWIN = 0x5B;
+    public const byte VK_D = 0x44;
 
     [FlagsAttribute]
     public enum ExecutionState : uint
@@ -36,37 +36,64 @@ public static class Handler
 
     public static void CatchWolf()
     {
-        if (_onlyOnce)
-            return;
-        _onlyOnce = true;
-
         Console.WriteLine("Capturing a WOLF!!!");
         LockWorkStation();
-
-        var image = TakeSnapshot();
-        if (onCapture != null) 
-            onCapture.Invoke(image);
-
         PreventScreenSaver(false);
+
+        onCapture?.Invoke(TakeSnapshot());
     }
 
-    public static void HookupEvents(Func<Image, bool> OnCapture)
+    public static void HookupEvents(Func<Image, bool> onCaptureEvent)
     {
-        onCapture = OnCapture;
-        Hook.GlobalEvents().MouseMove += (sender, e) =>
+        _onlyOnce = false; //reset
+        onCapture = onCaptureEvent;
+
+        Hook.GlobalEvents().MouseMove += GlobalHook_MouseMove;
+        Hook.GlobalEvents().KeyUp += GlobalHook_KeyUp;
+    }
+
+    private static void GlobalHook_MouseMove(object sender, MouseEventArgs e)
+    {
+        try
         {
-            CatchWolf();
-        };
-        Hook.GlobalEvents().KeyUp += (sender, e) =>
-        {
-            if (e.Shift && Keys.W == e.KeyCode)
+            if (_onlyOnce)
                 return;
+            _onlyOnce = true;
+            Hook.GlobalEvents().MouseMove -= GlobalHook_MouseMove;
+
             CatchWolf();
-        };
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            throw;
+        }
+    }
+
+    private static void GlobalHook_KeyUp(object sender, KeyEventArgs e)
+    {
+        try
+        {
+            if (_onlyOnce)
+                return;
+            _onlyOnce = true;
+            Hook.GlobalEvents().KeyUp -= GlobalHook_KeyUp;
+
+            CatchWolf();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+            throw;
+        }
     }
 
     [DllImport("user32.dll")]
     public static extern void LockWorkStation();
+
+    [DllImport("user32.dll")]
+    public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
+
 
     public static void MinimizeAll()
     {
@@ -81,6 +108,11 @@ public static class Handler
             if (handle == System.IntPtr.Zero) continue;
             ShowWindow(handle, SwMinimize);
         }
+
+        keybd_event(VK_LWIN, 0, 0, 0);
+        keybd_event(VK_D, 0, 0, 0);
+        keybd_event(VK_D, 0, KEYEVENTF_KEYUP, 0);
+        keybd_event(VK_LWIN, 0, KEYEVENTF_KEYUP, 0);
     }
 
     [DllImport("user32.dll", SetLastError = true)]
@@ -105,7 +137,7 @@ public static class Handler
         {
             camera = new WebCam(30);
             camera.Start();
-            
+
             Image capturedImage = null;
             var counter = 0;
             while (capturedImage == null && counter < 60)
