@@ -33,7 +33,7 @@ partial class frmCaptureWolf : Form
         // startButton
         // 
         startButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-        startButton.BackColor = ColorTranslator.FromHtml("#383838");
+        startButton.BackColor = ColorTranslator.FromHtml("#002647");
         startButton.FlatAppearance.BorderColor = Color.Gray;
         startButton.FlatStyle = FlatStyle.Flat;
         startButton.ForeColor = Color.White;
@@ -64,7 +64,7 @@ partial class frmCaptureWolf : Form
         // 
         explainLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         explainLabel.AutoSize = true;
-        explainLabel.BackColor = ColorTranslator.FromHtml("#2C2C2C");
+        explainLabel.BackColor = ColorTranslator.FromHtml("#000017");
         explainLabel.ForeColor = Color.White;
         explainLabel.Location = new Point(34, 1387);
         explainLabel.Margin = new Padding(9, 0, 9, 0);
@@ -76,7 +76,7 @@ partial class frmCaptureWolf : Form
         // btnStop
         // 
         btnStop.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-        btnStop.BackColor = ColorTranslator.FromHtml("#2C2C2C");
+        btnStop.BackColor = ColorTranslator.FromHtml("#000017");
         btnStop.FlatAppearance.BorderColor = Color.Gray;
         btnStop.FlatStyle = FlatStyle.Flat;
         btnStop.ForeColor = Color.White;
@@ -93,7 +93,7 @@ partial class frmCaptureWolf : Form
         // 
         AutoScaleDimensions = new SizeF(20F, 48F);
         AutoScaleMode = AutoScaleMode.Font;
-        BackColor = ColorTranslator.FromHtml("#2C2C2C");
+        BackColor = ColorTranslator.FromHtml("#000017");
         ClientSize = new Size(1488, 1502);
         Controls.Add(btnStop);
         Controls.Add(explainLabel);
