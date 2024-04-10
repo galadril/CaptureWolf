@@ -13,6 +13,8 @@ public partial class frmCaptureWolf : Form
     {
         Handler.PreventScreenSaver(true);
         Handler.MinimizeAll();
+    
+        Thread.Sleep(2000);
         Handler.HookupEvents(OnCapture);
     }
 
@@ -20,7 +22,14 @@ public partial class frmCaptureWolf : Form
     {
         pictureBox.Image = image;
         ImageSet = true;
-        explainLabel.Text = "We captured one!!!";
+        explainLabel.Text = "We captured one!!! Click the photo to save it.";
+
+        // Bring the current application window to the front
+        Invoke(() => {
+            WindowState = FormWindowState.Normal;
+            Activate();
+        });
+
         return true;
     }
 
