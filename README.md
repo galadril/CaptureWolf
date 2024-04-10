@@ -1,6 +1,8 @@
 # CaptureWolf
-Make it look like your pc is unlocked to lure in the wolves.
+
 ![image](https://github.com/galadril/CaptureWolf/assets/14561640/1109335e-7d63-434f-9f05-7d5528b1973a)
+
+Make it look like your pc is unlocked to lure in the wolves. 
 
 You can use this tool on Windows when your leaving your pc. Just run the CaptureWolf.exe :wolf: and start the tool by typing 'Y'.
 It automatically minimizes all your windows, and your pc is then ready to lure in the wolves.
