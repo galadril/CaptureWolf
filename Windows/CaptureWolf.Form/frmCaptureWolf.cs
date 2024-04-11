@@ -1,12 +1,18 @@
+using System.ComponentModel;
+
 namespace CaptureWolf.UI;
 
 public partial class frmCaptureWolf : Form
 {
     public bool ImageSet = false;
+    private readonly ImageSaver _imageSaver;
 
     public frmCaptureWolf()
     {
         InitializeComponent();
+
+        _imageSaver = new ImageSaver();
+        _imageSaver.SetOnCompletedEvent(WhenCompleted);
     }
 
     private void startButton_Click(object sender, EventArgs e)
@@ -16,6 +22,13 @@ public partial class frmCaptureWolf : Form
 
         Thread.Sleep(2000);
         Handler.HookupEvents(OnCapture);
+    }
+
+    private void WhenCompleted(object sender, RunWorkerCompletedEventArgs e)
+    {
+        explainLabel.Text = e.Error != null
+            ? $"Could not save the image."
+            : $"Image saved successfully!";
     }
 
     private bool OnCapture(Image image)
@@ -41,12 +54,13 @@ public partial class frmCaptureWolf : Form
             return;
 
         using var sfd = new SaveFileDialog();
+        sfd.FileName = $"capture-{Guid.NewGuid().ToString()}";
         sfd.Filter = @"Images|*.png;*.bmp;*.jpg";
         sfd.DefaultExt = "png";
 
         if (sfd.ShowDialog() == DialogResult.OK)
         {
-            pictureBox.Image.Save(sfd.FileName);
+            _imageSaver.SaveImage(sfd.FileName, pictureBox.Image);
         }
     }
 

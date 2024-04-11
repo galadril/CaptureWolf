@@ -206,7 +206,7 @@
         "RemovePreviousVersions" = "11:FALSE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:1.0.2"
+        "ProductVersion" = "8:1.0.3"
         "Manufacturer" = "8:Mark Heinis"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:https://github.com/galadril/CaptureWolf"
@@ -748,7 +748,7 @@
         {
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_500A04014938445BA333273598E89141"
             {
-            "SourcePath" = "8:..\\CaptureWolf.Form\\obj\\Release\\net8.0-windows\\apphost.exe"
+            "SourcePath" = "8:..\\CaptureWolf.Form\\obj\\Debug\\net8.0-windows\\apphost.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_91BC5BAF65BF489F87D9A493CF781DBA"
