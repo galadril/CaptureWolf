@@ -33,14 +33,13 @@ partial class frmCaptureWolf : Form
         // startButton
         // 
         startButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-        startButton.BackColor = ColorTranslator.FromHtml("#002647");
+        startButton.BackColor = Color.FromArgb(0, 38, 71);
         startButton.FlatAppearance.BorderColor = Color.Gray;
         startButton.FlatStyle = FlatStyle.Flat;
         startButton.ForeColor = Color.White;
-        startButton.Location = new Point(34, 1171);
-        startButton.Margin = new Padding(9, 10, 9, 10);
+        startButton.Location = new Point(12, 366);
         startButton.Name = "startButton";
-        startButton.Size = new Size(1414, 182);
+        startButton.Size = new Size(495, 57);
         startButton.TabIndex = 0;
         startButton.Text = "Start Luring";
         startButton.UseVisualStyleBackColor = false;
@@ -51,39 +50,37 @@ partial class frmCaptureWolf : Form
         pictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         pictureBox.Image = (Image)resources.GetObject("pictureBox.Image");
         pictureBox.ImageLocation = "";
-        pictureBox.Location = new Point(54, 132);
-        pictureBox.Margin = new Padding(9, 10, 9, 10);
+        pictureBox.Location = new Point(19, 41);
         pictureBox.Name = "pictureBox";
-        pictureBox.Size = new Size(1370, 992);
+        pictureBox.Size = new Size(480, 310);
         pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
         pictureBox.TabIndex = 1;
         pictureBox.TabStop = false;
         pictureBox.Click += pictureBox_Click;
+        
         // 
         // explainLabel
         // 
         explainLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         explainLabel.AutoSize = true;
-        explainLabel.BackColor = ColorTranslator.FromHtml("#000017");
+        explainLabel.BackColor = Color.FromArgb(0, 0, 23);
         explainLabel.ForeColor = Color.White;
-        explainLabel.Location = new Point(34, 1387);
-        explainLabel.Margin = new Padding(9, 0, 9, 0);
+        explainLabel.Location = new Point(12, 433);
         explainLabel.Name = "explainLabel";
-        explainLabel.Size = new Size(770, 48);
+        explainLabel.Size = new Size(254, 15);
         explainLabel.TabIndex = 2;
         explainLabel.Text = "Sheep stick together, start luring in the Wolves!";
         // 
         // btnStop
         // 
         btnStop.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-        btnStop.BackColor = ColorTranslator.FromHtml("#000017");
+        btnStop.BackColor = Color.FromArgb(0, 0, 23);
         btnStop.FlatAppearance.BorderColor = Color.Gray;
         btnStop.FlatStyle = FlatStyle.Flat;
         btnStop.ForeColor = Color.White;
-        btnStop.Location = new Point(1382, 19);
-        btnStop.Margin = new Padding(9, 10, 9, 10);
+        btnStop.Location = new Point(484, 6);
         btnStop.Name = "btnStop";
-        btnStop.Size = new Size(88, 86);
+        btnStop.Size = new Size(31, 27);
         btnStop.TabIndex = 3;
         btnStop.Text = "X";
         btnStop.UseVisualStyleBackColor = false;
@@ -91,10 +88,10 @@ partial class frmCaptureWolf : Form
         // 
         // frmCaptureWolf
         // 
-        AutoScaleDimensions = new SizeF(20F, 48F);
+        AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
-        BackColor = ColorTranslator.FromHtml("#000017");
-        ClientSize = new Size(1488, 1502);
+        BackColor = Color.FromArgb(0, 0, 23);
+        ClientSize = new Size(521, 456);
         Controls.Add(btnStop);
         Controls.Add(explainLabel);
         Controls.Add(pictureBox);
@@ -102,7 +99,6 @@ partial class frmCaptureWolf : Form
         ForeColor = Color.White;
         FormBorderStyle = FormBorderStyle.None;
         Icon = (Icon)resources.GetObject("$this.Icon");
-        Margin = new Padding(9, 10, 9, 10);
         MaximizeBox = false;
         Name = "frmCaptureWolf";
         Text = "CaptureWolves";

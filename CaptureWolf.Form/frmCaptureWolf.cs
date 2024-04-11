@@ -13,7 +13,7 @@ public partial class frmCaptureWolf : Form
     {
         Handler.PreventScreenSaver(true);
         Handler.MinimizeAll();
-    
+
         Thread.Sleep(2000);
         Handler.HookupEvents(OnCapture);
     }
@@ -25,11 +25,13 @@ public partial class frmCaptureWolf : Form
         explainLabel.Text = "We captured one!!! Click the photo to save it.";
 
         // Bring the current application window to the front
-        Invoke(() => {
+        Invoke(() =>
+        {
             WindowState = FormWindowState.Normal;
             Activate();
         });
-
+        
+        SetupTooltip();
         return true;
     }
 
@@ -51,5 +53,17 @@ public partial class frmCaptureWolf : Form
     private void btnStop_Click(object sender, EventArgs e)
     {
         Application.Exit();
+    }
+
+    private void SetupTooltip()
+    {
+        var toolTip = new ToolTip();
+        toolTip.AutoPopDelay = 5000;
+        toolTip.InitialDelay = 1000;
+        toolTip.ReshowDelay = 500;
+        toolTip.ShowAlways = true;
+        toolTip.BackColor = Color.FromArgb(50, 50, 50); // Dark gray
+        toolTip.ForeColor = Color.White;
+        toolTip.SetToolTip(this.pictureBox, "Click the image to save it.");
     }
 }
