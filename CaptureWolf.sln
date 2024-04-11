@@ -9,6 +9,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CaptureWolf.UI", "CaptureWo
 EndProject
 Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "CaptureWolf.Installer", "CaptureWolf.Installer\CaptureWolf.Installer.vdproj", "{3B82A65B-2EDD-460E-B3B9-6F835230FA0C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1B37A16C-46E0-4135-9149-7FE4533A50FA}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+		README.md = README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
