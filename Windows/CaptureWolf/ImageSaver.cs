@@ -1,6 +1,8 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using System.Drawing;
 
-namespace CaptureWolf.UI;
+namespace CaptureWolf;
 
 public class ImageSaver
 {

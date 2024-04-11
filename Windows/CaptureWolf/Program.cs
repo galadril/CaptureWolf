@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -38,11 +39,19 @@ namespace CaptureWolf
             var silent = args is { Length: > 0 } && !string.IsNullOrEmpty(args[0]) && (string.Compare(args[0], "/silent", StringComparison.OrdinalIgnoreCase) == 0 ||
                 string.Compare(args[0], "/s", StringComparison.OrdinalIgnoreCase) == 0);
 
+
             Handler.PreventScreenSaver(true);
             Init(silent);
             Handler.MinimizeAll();
             Handler.HookupEvents(OnCapture);
             Application.Run(new ApplicationContext());
+        }
+
+        private static void WhenCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            Console.WriteLine(e.Error != null
+                ? $"Could not save the image."
+                : $"Image saved successfully!");
         }
 
         private static bool OnCapture(Image image)
@@ -59,10 +68,9 @@ namespace CaptureWolf
                 var newFile = dir + "\\wolf" +
                               Guid.NewGuid().ToString() + ".jpg";
 
-                using var fs = new FileStream(newFile, FileMode.Create);
-                Console.WriteLine($"Writing image: {newFile}");
-                image.Save(fs, ImageFormat.Jpeg);
-
+                var imageSaver = new ImageSaver();
+                imageSaver.SetOnCompletedEvent(WhenCompleted);
+                imageSaver.SaveImage(newFile, image);
                 return true;
             }
             catch (Exception ex)
