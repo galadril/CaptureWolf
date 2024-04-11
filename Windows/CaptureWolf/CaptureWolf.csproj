@@ -22,6 +22,9 @@
 	</ItemGroup>
 
 	<ItemGroup>
+		<None Update="icon.png">
+		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+		</None>
 		<None Update="screen\1.jpg">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
