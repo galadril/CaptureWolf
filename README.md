@@ -1,6 +1,6 @@
 ﻿# 🐺 CaptureWolf 🐺
 
-![CaptureWolf](https://user-images.githubusercontent.com/14561640/124443469-fff79c00-dd7d-11eb-9cda-b1b386d966d9.png)
+![CaptureWolf](https://github.com/galadril/CaptureWolf/assets/14561640/e93ac00f-72a5-4275-8a5a-5688715d5bff)
 
 Welcome to CaptureWolf, the ultimate tool for catching those sneaky wolves who try to access your PC when you're away. 
 
