@@ -11,10 +11,30 @@
 		<ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
 		<ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
 		<ApplicationIcon>icon.ico</ApplicationIcon>
+		<Title>CaptureWolf</Title>
+		<Version>$(VersionPrefix)</Version>
+		<Description>Welcome to CaptureWolf, the ultimate tool for catching those sneaky wolves who try to access your PC when you're away.</Description>
+		<Copyright>Mark Heinis</Copyright>
+		<PackageProjectUrl>https://github.com/galadril/CaptureWolf</PackageProjectUrl>
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
+		<RepositoryUrl>https://github.com/galadril/CaptureWolf</RepositoryUrl>
+		<PackageTags>wolf, capture, lock</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>
 	  <Content Include="icon.ico" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\CaptureWolf\icon.png">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
+	  <None Include="..\README.md">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 	<ItemGroup>
