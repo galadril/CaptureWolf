@@ -17,10 +17,33 @@ jobs:
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
-        dotnet-version: 8.0.x
+        dotnet-version: 5.0.x
 
     - name: Restore dependencies
       run: dotnet restore ./Windows/CaptureWolf.sln
 
     - name: Build
-      run: dotnet build --no-restore ./Windows/CaptureWolf.sln
+      run: dotnet build --configuration Release --no-restore ./Windows/CaptureWolf.UI/CaptureWolf.UI.csproj
+
+    - name: Zip output
+      run: |
+        cd ./Windows/CaptureWolf.UI/bin/Release
+        7z a output.zip ./*
+      shell: pwsh
+
+    - name: Build Installer
+      run: dotnet build --configuration Release --no-restore ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.csproj
+
+    - name: Zip MSI
+      run: |
+        cd ./Windows/CaptureWolf.Installer/bin/Release
+        7z a installer.zip ./*.msi
+      shell: pwsh
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: output
+        path: |
+          ./Windows/CaptureWolf.UI/bin/Release/output.zip
+          ./Windows/CaptureWolf.Installer/bin/Release/installer.zip
