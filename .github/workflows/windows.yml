@@ -8,7 +8,6 @@ on:
 
 jobs:
   build:
-
     runs-on: windows-latest
 
     steps:
@@ -31,6 +30,27 @@ jobs:
         7z a output.zip ./*
       shell: pwsh
 
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: output
+        path: ./Windows/CaptureWolf.UI/bin/Release/output.zip
+
+  build_installer:
+    needs: build
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore ./Windows/CaptureWolf.sln
+
     - name: Build Installer
       run: dotnet build --configuration Release --no-restore ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.csproj
 
@@ -43,7 +63,5 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: output
-        path: |
-          ./Windows/CaptureWolf.UI/bin/Release/output.zip
-          ./Windows/CaptureWolf.Installer/bin/Release/installer.zip
+        name: installer
+        path: ./Windows/CaptureWolf.Installer/bin/Release/installer.zip
