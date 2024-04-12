@@ -21,41 +21,20 @@ jobs:
     - name: Restore dependencies
       run: dotnet restore ./Windows/CaptureWolf.sln
 
+    - name: Setup VS Dev Environment
+      uses: seanmiddleditch/gha-setup-vsdevenv@v4
+
     - name: Build
       run: dotnet build --configuration Release --no-restore ./Windows/CaptureWolf.Form/CaptureWolf.UI.csproj
+
+    - name: Build Installer
+      run: devenv.com ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj /build "Release|Any CPU"
 
     - name: Zip output
       run: |
         cd ./Windows/CaptureWolf.Form/bin/Release
         7z a output.zip ./*
       shell: pwsh
-
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: output
-        path: ./Windows/CaptureWolf.Form/bin/Release/output.zip
-
-  build_installer:
-    needs: build
-    runs-on: windows-2022
-
-    steps:
-    - uses: actions/checkout@v2
-
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 8.0.x
-
-    - name: Restore dependencies
-      run: dotnet restore ./Windows/CaptureWolf.sln
-
-    - name: Setup VS Dev Environment
-      uses: seanmiddleditch/gha-setup-vsdevenv@v4
-
-    - name: Build Installer
-      run: devenv.com ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj /build "Release|Any CPU"
 
     - name: Zip MSI
       run: |
@@ -64,6 +43,12 @@ jobs:
       shell: pwsh
 
     - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: output
+        path: ./Windows/CaptureWolf.Form/bin/Release/output.zip
+
+    - name: Upload Installer
       uses: actions/upload-artifact@v2
       with:
         name: installer
