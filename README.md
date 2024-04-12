@@ -1,4 +1,6 @@
-﻿# 🐺 CaptureWolf 🐺
+﻿[![.NET](https://github.com/galadril/CaptureWolf/actions/workflows/windows.yml/badge.svg)](https://github.com/galadril/CaptureWolf/actions/workflows/windows.yml)
+
+# 🐺 CaptureWolf 🐺
  
 ![CaptureWolf](https://github.com/galadril/CaptureWolf/assets/14561640/d47d2128-e8bd-46d8-959e-3f2ad8348c9a)
 
