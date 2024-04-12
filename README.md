@@ -1,5 +1,4 @@
 ﻿![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/galadril/CaptureWolf/total?style=for-the-badge&label=Potential%20wolves) 
-Builds: [![.NET](https://github.com/galadril/CaptureWolf/actions/workflows/windows.yml/badge.svg)](https://github.com/galadril/CaptureWolf/actions/workflows/windows.yml)
 
 # 🐺 CaptureWolf 🐺
  
