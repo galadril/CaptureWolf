@@ -30,26 +30,14 @@ jobs:
     - name: Build Installer
       run: devenv.com ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj /build "Release|Any CPU"
 
-    - name: Zip output
-      run: |
-        cd ./Windows/CaptureWolf.Form/bin/Release
-        7z a output.zip ./*
-      shell: pwsh
-
-    - name: Zip MSI
-      run: |
-        cd ./Windows/CaptureWolf.Installer/Release
-        7z a installer.zip ./*.msi
-      shell: pwsh
-
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2
       with:
         name: output
-        path: ./Windows/CaptureWolf.Form/bin/Release/output.zip
+        path: ./Windows/CaptureWolf.Form/bin/Release/
 
     - name: Upload Installer
       uses: actions/upload-artifact@v2
       with:
         name: installer
-        path: ./Windows/CaptureWolf.Installer/Release/installer.zip
+        path: ./Windows/CaptureWolf.Installer/Release/
