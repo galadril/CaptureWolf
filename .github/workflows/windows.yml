@@ -23,7 +23,7 @@ jobs:
       run: dotnet restore ./Windows/CaptureWolf.sln
 
     - name: Build
-      run: dotnet build --configuration Release --no-restore ./Windows/CaptureWolf.UI/CaptureWolf.UI.csproj
+      run: dotnet build --configuration Release --no-restore ./Windows/CaptureWolf.Form/CaptureWolf.UI.csproj
 
     - name: Zip output
       run: |
