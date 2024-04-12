@@ -11,8 +11,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "CaptureWolf.Installer", "Ca
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{1B37A16C-46E0-4135-9149-7FE4533A50FA}"
 	ProjectSection(SolutionItems) = preProject
-		.gitignore = .gitignore
-		README.md = README.md
+		..\.gitignore = ..\.gitignore
+		..\README.md = ..\README.md
 	EndProjectSection
 EndProject
 Global
