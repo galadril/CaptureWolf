@@ -52,4 +52,4 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: installer
-        path: ./Windows/CaptureWolf.Installer/bin/Release/installer.zip
+        path: ./Windows/CaptureWolf.Installer/Release/installer.zip
