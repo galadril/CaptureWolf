@@ -38,7 +38,7 @@ jobs:
 
     - name: Zip MSI
       run: |
-        cd ./Windows/CaptureWolf.Installer/bin/Release
+        cd ./Windows/CaptureWolf.Installer/Release
         7z a installer.zip ./*.msi
       shell: pwsh
 
