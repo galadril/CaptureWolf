@@ -26,7 +26,7 @@ jobs:
 
     - name: Zip output
       run: |
-        cd ./Windows/CaptureWolf.UI/bin/Release
+        cd ./Windows/CaptureWolf.Form/bin/Release
         7z a output.zip ./*
       shell: pwsh
 
@@ -34,7 +34,7 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: output
-        path: ./Windows/CaptureWolf.UI/bin/Release/output.zip
+        path: ./Windows/CaptureWolf.Form/bin/Release/output.zip
 
   build_installer:
     needs: build
