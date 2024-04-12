@@ -38,21 +38,16 @@ jobs:
 
   build_installer:
     needs: build
-    runs-on: windows-latest
+    runs-on: windows-2022
 
     steps:
     - uses: actions/checkout@v2
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 8.0.x
-
-    - name: Restore dependencies
-      run: dotnet restore ./Windows/CaptureWolf.sln
+    - name: Setup VS Dev Environment
+      uses: seanmiddleditch/gha-setup-vsdevenv@v4
 
     - name: Build Installer
-      run: dotnet build --configuration Release --no-restore ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj
+      run: devenv.com ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj /build "Release|Any CPU"
 
     - name: Zip MSI
       run: |
