@@ -43,6 +43,14 @@ jobs:
     steps:
     - uses: actions/checkout@v2
 
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore ./Windows/CaptureWolf.sln
+
     - name: Setup VS Dev Environment
       uses: seanmiddleditch/gha-setup-vsdevenv@v4
 
