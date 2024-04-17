@@ -6,9 +6,7 @@
 		
 		<UseWindowsForms>true</UseWindowsForms>
 		<ImplicitUsings>enable</ImplicitUsings>
-
-		<ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
-		<ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
+		<DpiAwareness>PerMonitorV2</DpiAwareness>
 		<ApplicationIcon>icon.ico</ApplicationIcon>
 		<Title>CaptureWolf</Title>
 		<Version>$(VersionPrefix)</Version>

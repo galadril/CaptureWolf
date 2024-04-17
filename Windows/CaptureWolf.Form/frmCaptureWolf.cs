@@ -99,6 +99,7 @@ public partial class frmCaptureWolf : Form
     private void btnConfig_Click(object sender, EventArgs e)
     {
         var settingsForm = new frmSettings();
+        settingsForm.StartPosition = FormStartPosition.CenterParent;
         settingsForm.ShowDialog();
     }
 }

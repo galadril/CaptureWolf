@@ -1,7 +1,4 @@
-﻿using CaptureWolf.UI.Properties;
-using System.Windows.Forms;
-
-namespace CaptureWolf.UI
+﻿namespace CaptureWolf.UI
 {
     partial class frmSettings
     {
@@ -31,12 +28,41 @@ namespace CaptureWolf.UI
         /// </summary>
         private void InitializeComponent()
         {
-            btnStop = new Button();
-            btnClose = new Button();
             label = new Label();
             comboBox = new ComboBox();
             lblTitleSettings = new Label();
+            btnStop = new Button();
             SuspendLayout();
+            // 
+            // label
+            // 
+            label.Location = new Point(103, 317);
+            label.Margin = new Padding(9, 0, 9, 0);
+            label.Name = "label";
+            label.Size = new Size(446, 74);
+            label.TabIndex = 0;
+            label.Text = "Select resolution of camera:";
+            // 
+            // comboBox
+            // 
+            comboBox.Location = new Point(103, 400);
+            comboBox.Margin = new Padding(9, 10, 9, 10);
+            comboBox.Name = "comboBox";
+            comboBox.Size = new Size(898, 56);
+            comboBox.TabIndex = 1;
+            comboBox.SelectedIndexChanged += comboBox_SelectedIndexChanged;
+            // 
+            // lblTitleSettings
+            // 
+            lblTitleSettings.AutoSize = true;
+            lblTitleSettings.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            lblTitleSettings.ForeColor = Color.White;
+            lblTitleSettings.Location = new Point(103, 128);
+            lblTitleSettings.Margin = new Padding(9, 0, 9, 0);
+            lblTitleSettings.Name = "lblTitleSettings";
+            lblTitleSettings.Size = new Size(366, 85);
+            lblTitleSettings.TabIndex = 5;
+            lblTitleSettings.Text = "Preferences";
             // 
             // btnStop
             // 
@@ -45,69 +71,28 @@ namespace CaptureWolf.UI
             btnStop.FlatAppearance.BorderColor = Color.Gray;
             btnStop.FlatStyle = FlatStyle.Flat;
             btnStop.ForeColor = Color.White;
-            btnStop.Location = new Point(640, 12);
+            btnStop.Location = new Point(1107, 19);
+            btnStop.Margin = new Padding(9, 10, 9, 10);
             btnStop.Name = "btnStop";
-            btnStop.Size = new Size(31, 27);
-            btnStop.TabIndex = 4;
+            btnStop.Size = new Size(89, 86);
+            btnStop.TabIndex = 6;
             btnStop.Text = "X";
             btnStop.UseVisualStyleBackColor = false;
-            // 
-            // btnClose
-            // 
-            btnClose.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnClose.BackColor = Color.FromArgb(0, 0, 23);
-            btnClose.FlatAppearance.BorderColor = Color.Gray;
-            btnClose.FlatStyle = FlatStyle.Flat;
-            btnClose.ForeColor = Color.White;
-            btnClose.Location = new Point(361, 12);
-            btnClose.Name = "btnClose";
-            btnClose.Size = new Size(31, 27);
-            btnClose.TabIndex = 6;
-            btnClose.Text = "X";
-            btnClose.UseVisualStyleBackColor = false;
-            btnClose.Click += btnClose_Click;
-            // 
-            // label
-            // 
-            label.Location = new Point(36, 99);
-            label.Name = "label";
-            label.Size = new Size(156, 23);
-            label.TabIndex = 0;
-            label.Text = "Select resolution of camera:";
-            // 
-            // comboBox
-            // 
-            comboBox.Location = new Point(36, 125);
-            comboBox.Name = "comboBox";
-            comboBox.Size = new Size(317, 23);
-            comboBox.TabIndex = 1;
-            comboBox.SelectedIndexChanged += comboBox_SelectedIndexChanged;
-            // 
-            // lblTitleSettings
-            // 
-            lblTitleSettings.AutoSize = true;
-            lblTitleSettings.BackColor = Color.FromArgb(0, 0, 23);
-            lblTitleSettings.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            lblTitleSettings.ForeColor = Color.White;
-            lblTitleSettings.Location = new Point(36, 40);
-            lblTitleSettings.Name = "lblTitleSettings";
-            lblTitleSettings.Size = new Size(123, 30);
-            lblTitleSettings.TabIndex = 5;
-            lblTitleSettings.Text = "Preferences";
+            btnStop.Click += btnClose_Click;
             // 
             // frmSettings
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(20F, 48F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.FromArgb(0, 0, 23);
-            ClientSize = new Size(404, 194);
+            BackColor = Color.FromArgb(0, 38, 71);
+            ClientSize = new Size(1214, 679);
+            Controls.Add(btnStop);
             Controls.Add(label);
             Controls.Add(comboBox);
-            Controls.Add(btnClose);
             Controls.Add(lblTitleSettings);
-            Controls.Add(btnStop);
             ForeColor = Color.White;
             FormBorderStyle = FormBorderStyle.None;
+            Margin = new Padding(9, 10, 9, 10);
             MaximizeBox = false;
             Name = "frmSettings";
             Text = "Preferences";
@@ -146,10 +131,9 @@ namespace CaptureWolf.UI
 
         #endregion
 
-        private Button btnStop;
-        private Button btnClose;
         private Label label;
         private ComboBox comboBox;
         private Label lblTitleSettings;
+        private Button btnStop;
     }
 }
