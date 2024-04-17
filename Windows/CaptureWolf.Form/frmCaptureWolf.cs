@@ -17,6 +17,8 @@ public partial class frmCaptureWolf : Form
 
     private void startButton_Click(object sender, EventArgs e)
     {
+        LoadPreferences();
+
         Handler.PreventScreenSaver(true);
         Handler.MinimizeAll();
 
@@ -31,6 +33,19 @@ public partial class frmCaptureWolf : Form
             : $"Image saved successfully!";
     }
 
+    private void LoadPreferences()
+    {
+        string resolution = Properties.Settings.Default.Resolution;
+        if (!string.IsNullOrEmpty(resolution))
+        {
+            var parts = resolution.Split('x');
+            var width = int.Parse(parts[0].Trim());
+            var height = int.Parse(parts[1].Trim());
+            var frameSize = new Size(width, height);
+            Handler.FrameSize = frameSize;
+        }
+    }
+
     private bool OnCapture(Image image)
     {
         pictureBox.Image = image;
@@ -43,7 +58,7 @@ public partial class frmCaptureWolf : Form
             WindowState = FormWindowState.Normal;
             Activate();
         });
-        
+
         SetupTooltip();
         return true;
     }
@@ -79,5 +94,11 @@ public partial class frmCaptureWolf : Form
         toolTip.BackColor = Color.FromArgb(50, 50, 50); // Dark gray
         toolTip.ForeColor = Color.White;
         toolTip.SetToolTip(this.pictureBox, "Click the image to save it.");
+    }
+
+    private void btnConfig_Click(object sender, EventArgs e)
+    {
+        var settingsForm = new frmSettings();
+        settingsForm.ShowDialog();
     }
 }
