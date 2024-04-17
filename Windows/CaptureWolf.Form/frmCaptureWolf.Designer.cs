@@ -27,6 +27,7 @@ partial class frmCaptureWolf : Form
         pictureBox = new PictureBox();
         explainLabel = new Label();
         btnStop = new Button();
+        btnConfig = new Button();
         ((System.ComponentModel.ISupportInitialize)pictureBox).BeginInit();
         SuspendLayout();
         // 
@@ -57,7 +58,6 @@ partial class frmCaptureWolf : Form
         pictureBox.TabIndex = 1;
         pictureBox.TabStop = false;
         pictureBox.Click += pictureBox_Click;
-        
         // 
         // explainLabel
         // 
@@ -86,12 +86,28 @@ partial class frmCaptureWolf : Form
         btnStop.UseVisualStyleBackColor = false;
         btnStop.Click += btnStop_Click;
         // 
+        // btnConfig
+        // 
+        btnConfig.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+        btnConfig.BackColor = Color.FromArgb(0, 0, 23);
+        btnConfig.FlatAppearance.BorderColor = Color.Gray;
+        btnConfig.FlatStyle = FlatStyle.Flat;
+        btnConfig.ForeColor = Color.White;
+        btnConfig.Location = new Point(447, 6);
+        btnConfig.Name = "btnConfig";
+        btnConfig.Size = new Size(31, 27);
+        btnConfig.TabIndex = 4;
+        btnConfig.Text = "⚙";
+        btnConfig.UseVisualStyleBackColor = false;
+        btnConfig.Click += btnConfig_Click;
+        // 
         // frmCaptureWolf
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(0, 0, 23);
         ClientSize = new Size(521, 456);
+        Controls.Add(btnConfig);
         Controls.Add(btnStop);
         Controls.Add(explainLabel);
         Controls.Add(pictureBox);
@@ -135,4 +151,5 @@ partial class frmCaptureWolf : Form
     #endregion
 
     private Button btnStop;
+    private Button btnConfig;
 }

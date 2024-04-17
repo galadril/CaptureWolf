@@ -1,12 +1,13 @@
 ﻿using AForge.Video;
 using AForge.Video.DirectShow;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 
 namespace CaptureWolf
 {
-    internal class WebCam
+    public class WebCam
     {
         private readonly int _frameRate;
         public Bitmap CurrentImage;
@@ -80,6 +81,16 @@ namespace CaptureWolf
         {
             this.CurrentImage = (Bitmap)eventArgs.Frame.GetThumbnailImage(_frameSize?.Width ?? eventArgs.Frame.Width, _frameSize?.Height ?? eventArgs.Frame.Height, ImageConvertCallback, IntPtr.Zero);
             OnCurrentImageChanged?.Invoke(CurrentImage);
+        }
+
+        public IEnumerable<Size> GetAvailableResolutions()
+        {
+            if (_videoSource == null)
+            {
+                throw new Exception("Video source is not initialized");
+            }
+
+            return _videoSource.VideoCapabilities.Select(cap => cap.FrameSize);
         }
     }
 }

@@ -16,11 +16,14 @@ public static class Handler
     public const int ShutOffDisplay = 2;
     public const int WmSyscommand = 0x0112;
     private static bool _onlyOnce;
+    private static Size _frameSize;
     private static WebCam camera;
     private static Func<Image, bool> onCapture;
     public const byte KEYEVENTF_KEYUP = 0x02;
     public const byte VK_LWIN = 0x5B;
     public const byte VK_D = 0x44;
+
+    public static Size FrameSize { get => _frameSize; set => _frameSize = value; }
 
     [FlagsAttribute]
     public enum ExecutionState : uint
@@ -94,7 +97,6 @@ public static class Handler
     [DllImport("user32.dll")]
     public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
 
-
     public static void MinimizeAll()
     {
         var thisProcess =
@@ -135,7 +137,7 @@ public static class Handler
     {
         try
         {
-            camera = new WebCam(30);
+            camera = new WebCam(FrameSize, 30);
             camera.Start();
 
             Image capturedImage = null;
