@@ -43,7 +43,7 @@ namespace CaptureWolf.UI
         private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             // Store the selected resolution in the settings
-            Properties.Settings.Default.Resolution = comboBox.SelectedItem.ToString();
+            Properties.Settings.Default.Resolution = comboBox.SelectedItem?.ToString();
             Properties.Settings.Default.Save();
         }
     }
