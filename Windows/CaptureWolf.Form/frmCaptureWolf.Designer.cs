@@ -38,7 +38,7 @@ partial class frmCaptureWolf : Form
         startButton.FlatAppearance.BorderColor = Color.Gray;
         startButton.FlatStyle = FlatStyle.Flat;
         startButton.ForeColor = Color.White;
-        startButton.Location = new Point(12, 366);
+        startButton.Location = new Point(12, 279);
         startButton.Name = "startButton";
         startButton.Size = new Size(495, 57);
         startButton.TabIndex = 0;
@@ -51,9 +51,9 @@ partial class frmCaptureWolf : Form
         pictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         pictureBox.Image = (Image)resources.GetObject("pictureBox.Image");
         pictureBox.ImageLocation = "";
-        pictureBox.Location = new Point(19, 41);
+        pictureBox.Location = new Point(12, 39);
         pictureBox.Name = "pictureBox";
-        pictureBox.Size = new Size(480, 310);
+        pictureBox.Size = new Size(495, 234);
         pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
         pictureBox.TabIndex = 1;
         pictureBox.TabStop = false;
@@ -65,7 +65,7 @@ partial class frmCaptureWolf : Form
         explainLabel.AutoSize = true;
         explainLabel.BackColor = Color.FromArgb(0, 0, 23);
         explainLabel.ForeColor = Color.White;
-        explainLabel.Location = new Point(12, 433);
+        explainLabel.Location = new Point(12, 351);
         explainLabel.Name = "explainLabel";
         explainLabel.Size = new Size(254, 15);
         explainLabel.TabIndex = 2;
@@ -106,7 +106,7 @@ partial class frmCaptureWolf : Form
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(0, 0, 23);
-        ClientSize = new Size(521, 456);
+        ClientSize = new Size(521, 384);
         Controls.Add(btnConfig);
         Controls.Add(btnStop);
         Controls.Add(explainLabel);
