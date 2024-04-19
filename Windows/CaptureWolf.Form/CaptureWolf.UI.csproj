@@ -32,7 +32,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\CaptureWolf\CaptureWolf.csproj" />
+	  <ProjectReference Include="..\CaptureWolf\CaptureWolf.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>

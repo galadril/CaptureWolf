@@ -1,6 +1,6 @@
 ﻿namespace CaptureWolf.UI;
 
-partial class frmCaptureWolf : Form
+partial class FrmCaptureWolf : Form
 {
     private System.ComponentModel.IContainer components = null;
     private System.Windows.Forms.Button startButton;
@@ -22,7 +22,7 @@ partial class frmCaptureWolf : Form
 
     private void InitializeComponent()
     {
-        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frmCaptureWolf));
+        System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCaptureWolf));
         startButton = new Button();
         pictureBox = new PictureBox();
         explainLabel = new Label();
@@ -116,7 +116,7 @@ partial class frmCaptureWolf : Form
         FormBorderStyle = FormBorderStyle.None;
         Icon = (Icon)resources.GetObject("$this.Icon");
         MaximizeBox = false;
-        Name = "frmCaptureWolf";
+        Name = "FrmCaptureWolf";
         Text = "CaptureWolves";
         MouseDown += Form_MouseDown;
         MouseMove += Form_MouseMove;

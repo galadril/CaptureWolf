@@ -4,14 +4,7 @@
 		<OutputType>Library</OutputType>
 		<TargetFramework>net8.0-windows7.0</TargetFramework>
 		<LangVersion>latest</LangVersion>
-		<UseWindowsForms>true</UseWindowsForms>
-		<PackageIcon>icon.jpg</PackageIcon>
-		<PackageIconUrl />
 		<PackageId>CaptureWolf</PackageId>
-		<Authors>CaptureWolf</Authors>
-		<Company>CaptureWolf</Company>
-		<Product>CaptureWolf</Product>
-		<ApplicationIcon>icon.ico</ApplicationIcon>
 	</PropertyGroup>
 
 	<ItemGroup>

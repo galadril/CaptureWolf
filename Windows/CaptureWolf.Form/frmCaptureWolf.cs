@@ -2,12 +2,12 @@ using System.ComponentModel;
 
 namespace CaptureWolf.UI;
 
-public partial class frmCaptureWolf : Form
+public partial class FrmCaptureWolf : Form
 {
     public bool ImageSet = false;
     private readonly ImageSaver _imageSaver;
 
-    public frmCaptureWolf()
+    public FrmCaptureWolf()
     {
         InitializeComponent();
         InitializeSettingsIfEmpty();
@@ -36,15 +36,17 @@ public partial class frmCaptureWolf : Form
 
     private void LoadPreferences()
     {
-        string resolution = Properties.Settings.Default.Resolution;
-        if (!string.IsNullOrEmpty(resolution))
+        var resolution = Properties.Settings.Default.Resolution;
+        if (string.IsNullOrEmpty(resolution))
         {
-            var parts = resolution.Split('x');
-            var width = int.Parse(parts[0].Trim());
-            var height = int.Parse(parts[1].Trim());
-            var frameSize = new Size(width, height);
-            Handler.FrameSize = frameSize;
+            return;
         }
+
+        var parts = resolution.Split('x');
+        var width = int.Parse(parts[0].Trim());
+        var height = int.Parse(parts[1].Trim());
+        var frameSize = new Size(width, height);
+        Handler.FrameSize = frameSize;
     }
 
     private bool OnCapture(Image image)
@@ -99,22 +101,27 @@ public partial class frmCaptureWolf : Form
 
     private void btnConfig_Click(object sender, EventArgs e)
     {
-        var settingsForm = new frmSettings();
+        var settingsForm = new FrmSettings();
         settingsForm.StartPosition = FormStartPosition.CenterParent;
         settingsForm.ShowDialog();
     }
 
-    private void InitializeSettingsIfEmpty()
+    private static void InitializeSettingsIfEmpty()
     {
-        string selectedResolution = Properties.Settings.Default.Resolution;
-        if (string.IsNullOrEmpty(selectedResolution))
+        var selectedResolution = Properties.Settings.Default.Resolution;
+        if (!string.IsNullOrEmpty(selectedResolution))
         {
-            var webcam = new WebCam(1); // Initialize with your desired frame rate
-            webcam.Start(); // Start the webcam
-            var resolutions = webcam.GetAvailableResolutions();
+            return;
+        }
 
+        var webcam = new WebCam(1); // Initialize with your desired frame rate
+        webcam.Start(); // Start the webcam
+        var resolutions = webcam.GetAvailableResolutions();
+
+        try
+        {
             var highestResolution = new Size(0, 0);
-            var highestHDResolution = new Size(0, 0);
+            var highestHdResolution = new Size(0, 0);
             foreach (var resolution in resolutions)
             {
                 // Check if this resolution is higher than the current highest resolution
@@ -124,15 +131,25 @@ public partial class frmCaptureWolf : Form
                 }
 
                 // Check if this resolution has an HD aspect ratio and is higher than the current highest HD resolution
-                if ((float)resolution.Width / resolution.Height == 16f / 9 && resolution.Width * resolution.Height > highestHDResolution.Width * highestHDResolution.Height)
+                if ((float)resolution.Width / resolution.Height == 16f / 9 && resolution.Width * resolution.Height >
+                    highestHdResolution.Width * highestHdResolution.Height)
                 {
-                    highestHDResolution = resolution;
+                    highestHdResolution = resolution;
                 }
             }
 
             // Store the highest HD resolution in the settings if it's available, otherwise store the highest resolution
-            Properties.Settings.Default.Resolution = highestHDResolution.Width != 0 ? $"{highestHDResolution.Width} x {highestHDResolution.Height}" : $"{highestResolution.Width} x {highestResolution.Height}";
+            Properties.Settings.Default.Resolution = highestHdResolution.Width != 0
+                ? $"{highestHdResolution.Width} x {highestHdResolution.Height}"
+                : $"{highestResolution.Width} x {highestResolution.Height}";
             Properties.Settings.Default.Save();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+        finally
+        {
             webcam.Stop(); // Stop the webcam
         }
     }

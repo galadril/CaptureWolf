@@ -40,18 +40,31 @@ public class ImageSaver
         var watermarkPosition = new Point(imageWithWatermark.Width - resizedWatermarkImage.Width - 20, 20);
         var pen = new Pen(Color.FromArgb(0, 0, 23), 250);
 
-        var fontSize = imageWithWatermark.Width * 0.02f;
-        var font = new Font("Arial", fontSize);
+        var maxLabelWidth = imageWithWatermark.Width * 0.7f; // 80% of image width
+        var font = new Font("Arial", 10); // Start with a base font size
+        var text = "Thanks for keeping me sharp!";
+        var size = graphics.MeasureString(text, font);
+
+        // Increase font size until the text width exceeds the maximum label width
+        while (size.Width < maxLabelWidth)
+        {
+            font = new Font(font.FontFamily, font.Size + 1);
+            size = graphics.MeasureString(text, font);
+        }
+
+        // Decrease font size by 1 to ensure the text width does not exceed the maximum label width
+        font = new Font(font.FontFamily, font.Size - 1);
         var brush = new SolidBrush(Color.White);
         var format = new StringFormat { Alignment = StringAlignment.Center };
 
         graphics.DrawRectangle(pen, 0, 0, imageWithWatermark.Width - 1, imageWithWatermark.Height - 1);
         graphics.DrawImage(resizedWatermarkImage, watermarkPosition);
-        graphics.DrawString("Thanks for keeping me sharp!", font, brush, imageWithWatermark.Width / 2, imageWithWatermark.Height - font.Height, format);
+        graphics.DrawString(text, font, brush, imageWithWatermark.Width / 2, imageWithWatermark.Height - font.Height, format);
 
         imageWithWatermark.Save(fileName);
         e.Result = fileName;
     }
+
 
     private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
     {

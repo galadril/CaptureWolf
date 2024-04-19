@@ -7,20 +7,14 @@ using System.Linq;
 
 namespace CaptureWolf
 {
-    public class WebCam
+    public class WebCam(int frameRate)
     {
-        private readonly int _frameRate;
-        public Bitmap CurrentImage;
+        private readonly int _frameRate = frameRate;
+        public Bitmap CurrentImage = null;
         private Size? _frameSize;
         private FilterInfoCollection _videoDevices = null;
         private VideoCaptureDevice _videoSource = null;
         public Func<Image, bool> OnCurrentImageChanged;
-
-        public WebCam(int frameRate)
-        {
-            this._frameRate = frameRate;
-            this.CurrentImage = null;
-        }
 
         public WebCam(Size frameSize, int frameRate) : this(frameRate)
         {
@@ -36,10 +30,7 @@ namespace CaptureWolf
 
             _videoSource = new VideoCaptureDevice(_videoDevices[0].MonikerString);
             _videoSource.VideoResolution = _frameSize != null ? SelectResolution(_videoSource) : _videoSource.VideoCapabilities.Last();
-            if (_frameSize == null)
-            {
-                _frameSize = new Size(_videoSource.VideoResolution.FrameSize.Width, _videoSource.VideoResolution.FrameSize.Height);
-            }
+            _frameSize ??= new Size(_videoSource.VideoResolution.FrameSize.Width, _videoSource.VideoResolution.FrameSize.Height);
             _videoSource.NewFrame += VideoNewFrame;
             _videoSource.Start();
         }
@@ -79,7 +70,8 @@ namespace CaptureWolf
 
         private void VideoNewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-            this.CurrentImage = (Bitmap)eventArgs.Frame.GetThumbnailImage(_frameSize?.Width ?? eventArgs.Frame.Width, _frameSize?.Height ?? eventArgs.Frame.Height, ImageConvertCallback, IntPtr.Zero);
+            this.CurrentImage = (Bitmap)eventArgs.Frame.GetThumbnailImage(_frameSize?.Width ?? eventArgs.Frame.Width, 
+                _frameSize?.Height ?? eventArgs.Frame.Height, ImageConvertCallback, IntPtr.Zero);
             OnCurrentImageChanged?.Invoke(CurrentImage);
         }
 

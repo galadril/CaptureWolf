@@ -1,6 +1,6 @@
 ﻿namespace CaptureWolf.UI
 {
-    partial class frmSettings
+    partial class FrmSettings
     {
         /// <summary>
         /// Required designer variable.
@@ -94,7 +94,7 @@
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(9, 10, 9, 10);
             MaximizeBox = false;
-            Name = "frmSettings";
+            Name = "FrmSettings";
             Text = "Preferences";
             Load += frmSettings_Load;
             MouseDown += Form_MouseDown;

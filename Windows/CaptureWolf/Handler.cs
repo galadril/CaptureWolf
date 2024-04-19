@@ -1,6 +1,5 @@
 ﻿using Gma.System.MouseKeyHook;
 using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
@@ -99,18 +98,6 @@ public static class Handler
 
     public static void MinimizeAll()
     {
-        var thisProcess =
-            Process.GetCurrentProcess();
-        var processes =
-            Process.GetProcesses();
-        foreach (var process in processes)
-        {
-            if (process == thisProcess) continue;
-            var handle = process.MainWindowHandle;
-            if (handle == System.IntPtr.Zero) continue;
-            ShowWindow(handle, SwMinimize);
-        }
-
         keybd_event(VK_LWIN, 0, 0, 0);
         keybd_event(VK_D, 0, 0, 0);
         keybd_event(VK_D, 0, KEYEVENTF_KEYUP, 0);

@@ -1,22 +1,17 @@
-﻿using System;
-namespace CaptureWolf.UI
+﻿namespace CaptureWolf.UI
 {
-    public partial class frmSettings : Form
+    public partial class FrmSettings : Form
     {
         public event Action SettingsChanged;
 
-        public frmSettings()
+        public FrmSettings()
         {
             InitializeComponent();
         }
 
         private void btnClose_Click(object sender, EventArgs e)
         {
-            if (SettingsChanged != null)
-            {
-                SettingsChanged();
-            }
-
+            SettingsChanged?.Invoke();
             Close();
         }
 
@@ -24,20 +19,29 @@ namespace CaptureWolf.UI
         {
             var webcam = new WebCam(1); // Initialize with your desired frame rate
             webcam.Start(); // Start the webcam
-            var resolutions = webcam.GetAvailableResolutions();
 
-            foreach (Size resolution in resolutions)
+            try
             {
-                comboBox.Items.Add($"{resolution.Width} x {resolution.Height}");
-            }
+                var resolutions = webcam.GetAvailableResolutions();
+                foreach (var resolution in resolutions)
+                {
+                    comboBox.Items.Add($"{resolution.Width} x {resolution.Height}");
+                }
 
-            string selectedResolution = Properties.Settings.Default.Resolution;
-            if (!string.IsNullOrEmpty(selectedResolution))
+                var selectedResolution = Properties.Settings.Default.Resolution;
+                if (!string.IsNullOrEmpty(selectedResolution))
+                {
+                    comboBox.SelectedItem = selectedResolution;
+                }
+            }
+            catch (Exception ex)
             {
-                comboBox.SelectedItem = selectedResolution;
+                MessageBox.Show(ex.Message);
             }
-
-            webcam.Stop(); // Stop the webcam
+            finally
+            {
+                webcam.Stop(); // Stop the webcam
+            }
         }
 
         private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
