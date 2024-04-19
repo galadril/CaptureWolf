@@ -2,14 +2,15 @@ using System.ComponentModel;
 
 namespace CaptureWolf.UI;
 
-public partial class frmCaptureWolf : Form
+public partial class FrmCaptureWolf : Form
 {
     public bool ImageSet = false;
     private readonly ImageSaver _imageSaver;
 
-    public frmCaptureWolf()
+    public FrmCaptureWolf()
     {
         InitializeComponent();
+        SettingsHelper.InitializeSettingsIfEmpty();
 
         _imageSaver = new ImageSaver();
         _imageSaver.SetOnCompletedEvent(WhenCompleted);
@@ -35,15 +36,18 @@ public partial class frmCaptureWolf : Form
 
     private void LoadPreferences()
     {
-        string resolution = Properties.Settings.Default.Resolution;
-        if (!string.IsNullOrEmpty(resolution))
+        var resolution = Properties.Settings.Default.Resolution;
+        if (string.IsNullOrEmpty(resolution))
         {
-            var parts = resolution.Split('x');
-            var width = int.Parse(parts[0].Trim());
-            var height = int.Parse(parts[1].Trim());
-            var frameSize = new Size(width, height);
-            Handler.FrameSize = frameSize;
+            return;
         }
+
+        var parts = resolution.Split('x');
+        var width = int.Parse(parts[0].Trim());
+        var height = int.Parse(parts[1].Trim());
+        var frameSize = new Size(width, height);
+        Handler.FrameSize = frameSize;
+        Handler.WebCamName = Properties.Settings.Default.Camera;
     }
 
     private bool OnCapture(Image image)
@@ -98,7 +102,7 @@ public partial class frmCaptureWolf : Form
 
     private void btnConfig_Click(object sender, EventArgs e)
     {
-        var settingsForm = new frmSettings();
+        var settingsForm = new FrmSettings();
         settingsForm.StartPosition = FormStartPosition.CenterParent;
         settingsForm.ShowDialog();
     }

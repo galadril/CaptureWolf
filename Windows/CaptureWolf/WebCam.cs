@@ -1,28 +1,20 @@
 ﻿using AForge.Video;
 using AForge.Video.DirectShow;
-using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 
 namespace CaptureWolf
 {
-    public class WebCam
+    public class WebCam(string webcamName)
     {
-        private readonly int _frameRate;
-        public Bitmap CurrentImage;
+        public Bitmap CurrentImage = null;
+        public string WebcamName = webcamName;
         private Size? _frameSize;
         private FilterInfoCollection _videoDevices = null;
         private VideoCaptureDevice _videoSource = null;
         public Func<Image, bool> OnCurrentImageChanged;
 
-        public WebCam(int frameRate)
-        {
-            this._frameRate = frameRate;
-            this.CurrentImage = null;
-        }
-
-        public WebCam(Size frameSize, int frameRate) : this(frameRate)
+        public WebCam(Size frameSize, string webcamName) : this(webcamName)
         {
             this._frameSize = frameSize;
         }
@@ -34,14 +26,29 @@ namespace CaptureWolf
             if (GetCamList().Count == 0)
                 throw new Exception("Video device not found");
 
-            _videoSource = new VideoCaptureDevice(_videoDevices[0].MonikerString);
+            _videoSource = new VideoCaptureDevice(
+                string.IsNullOrEmpty(WebcamName) ?
+                    _videoDevices[0]?.MonikerString :
+                    GetSource()?.MonikerString
+                );
+
             _videoSource.VideoResolution = _frameSize != null ? SelectResolution(_videoSource) : _videoSource.VideoCapabilities.Last();
-            if (_frameSize == null)
-            {
-                _frameSize = new Size(_videoSource.VideoResolution.FrameSize.Width, _videoSource.VideoResolution.FrameSize.Height);
-            }
+            _frameSize ??= new Size(_videoSource.VideoResolution.FrameSize.Width, _videoSource.VideoResolution.FrameSize.Height);
             _videoSource.NewFrame += VideoNewFrame;
             _videoSource.Start();
+        }
+
+        public FilterInfo GetSource()
+        {
+            foreach (FilterInfo device in _videoDevices)
+            {
+                if (device.Name == WebcamName)
+                {
+                    return device;
+                }
+            }
+
+            return _videoDevices?[0];
         }
 
         public void Stop()
@@ -71,7 +78,7 @@ namespace CaptureWolf
             return device.VideoCapabilities.Last();
         }
 
-        private FilterInfoCollection GetCamList()
+        public FilterInfoCollection GetCamList()
         {
             _videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
             return _videoDevices;
@@ -79,7 +86,8 @@ namespace CaptureWolf
 
         private void VideoNewFrame(object sender, NewFrameEventArgs eventArgs)
         {
-            this.CurrentImage = (Bitmap)eventArgs.Frame.GetThumbnailImage(_frameSize?.Width ?? eventArgs.Frame.Width, _frameSize?.Height ?? eventArgs.Frame.Height, ImageConvertCallback, IntPtr.Zero);
+            this.CurrentImage = (Bitmap)eventArgs.Frame.GetThumbnailImage(_frameSize?.Width ?? eventArgs.Frame.Width,
+                _frameSize?.Height ?? eventArgs.Frame.Height, ImageConvertCallback, IntPtr.Zero);
             OnCurrentImageChanged?.Invoke(CurrentImage);
         }
 
