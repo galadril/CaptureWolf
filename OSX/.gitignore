@@ -13,3 +13,6 @@ build
 builds
 .netrc
 *.dmg
+
+# certificates
+certificates
