@@ -10,7 +10,7 @@ public partial class FrmCaptureWolf : Form
     public FrmCaptureWolf()
     {
         InitializeComponent();
-        InitializeSettingsIfEmpty();
+        SettingsHelper.InitializeSettingsIfEmpty();
 
         _imageSaver = new ImageSaver();
         _imageSaver.SetOnCompletedEvent(WhenCompleted);
@@ -47,6 +47,7 @@ public partial class FrmCaptureWolf : Form
         var height = int.Parse(parts[1].Trim());
         var frameSize = new Size(width, height);
         Handler.FrameSize = frameSize;
+        Handler.WebCamName = Properties.Settings.Default.Camera;
     }
 
     private bool OnCapture(Image image)
@@ -104,53 +105,5 @@ public partial class FrmCaptureWolf : Form
         var settingsForm = new FrmSettings();
         settingsForm.StartPosition = FormStartPosition.CenterParent;
         settingsForm.ShowDialog();
-    }
-
-    private static void InitializeSettingsIfEmpty()
-    {
-        var selectedResolution = Properties.Settings.Default.Resolution;
-        if (!string.IsNullOrEmpty(selectedResolution))
-        {
-            return;
-        }
-
-        var webcam = new WebCam();
-        webcam.Start(); // Start the webcam
-        var resolutions = webcam.GetAvailableResolutions();
-
-        try
-        {
-            var highestResolution = new Size(0, 0);
-            var highestHdResolution = new Size(0, 0);
-            foreach (var resolution in resolutions)
-            {
-                // Check if this resolution is higher than the current highest resolution
-                if (resolution.Width * resolution.Height > highestResolution.Width * highestResolution.Height)
-                {
-                    highestResolution = resolution;
-                }
-
-                // Check if this resolution has an HD aspect ratio and is higher than the current highest HD resolution
-                if ((float)resolution.Width / resolution.Height == 16f / 9 && resolution.Width * resolution.Height >
-                    highestHdResolution.Width * highestHdResolution.Height)
-                {
-                    highestHdResolution = resolution;
-                }
-            }
-
-            // Store the highest HD resolution in the settings if it's available, otherwise store the highest resolution
-            Properties.Settings.Default.Resolution = highestHdResolution.Width != 0
-                ? $"{highestHdResolution.Width} x {highestHdResolution.Height}"
-                : $"{highestResolution.Width} x {highestResolution.Height}";
-            Properties.Settings.Default.Save();
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex);
-        }
-        finally
-        {
-            webcam.Stop(); // Stop the webcam
-        }
     }
 }

@@ -29,28 +29,30 @@
         private void InitializeComponent()
         {
             label = new Label();
-            comboBox = new ComboBox();
+            cmbResolution = new ComboBox();
             lblTitleSettings = new Label();
             btnStop = new Button();
+            label1 = new Label();
+            cmbCamera = new ComboBox();
             SuspendLayout();
             // 
             // label
             // 
-            label.Location = new Point(103, 317);
+            label.Location = new Point(103, 494);
             label.Margin = new Padding(9, 0, 9, 0);
             label.Name = "label";
             label.Size = new Size(446, 74);
             label.TabIndex = 0;
-            label.Text = "Select resolution of camera:";
+            label.Text = "Resolution";
             // 
-            // comboBox
+            // cmbResolution
             // 
-            comboBox.Location = new Point(103, 400);
-            comboBox.Margin = new Padding(9, 10, 9, 10);
-            comboBox.Name = "comboBox";
-            comboBox.Size = new Size(898, 56);
-            comboBox.TabIndex = 1;
-            comboBox.SelectedIndexChanged += comboBox_SelectedIndexChanged;
+            cmbResolution.Location = new Point(103, 577);
+            cmbResolution.Margin = new Padding(9, 10, 9, 10);
+            cmbResolution.Name = "cmbResolution";
+            cmbResolution.Size = new Size(898, 56);
+            cmbResolution.TabIndex = 1;
+            cmbResolution.SelectedIndexChanged += comboBox_SelectedIndexChanged;
             // 
             // lblTitleSettings
             // 
@@ -80,15 +82,35 @@
             btnStop.UseVisualStyleBackColor = false;
             btnStop.Click += btnClose_Click;
             // 
-            // frmSettings
+            // label1
+            // 
+            label1.Location = new Point(103, 279);
+            label1.Margin = new Padding(9, 0, 9, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(446, 74);
+            label1.TabIndex = 7;
+            label1.Text = "Camera";
+            // 
+            // cmbCamera
+            // 
+            cmbCamera.Location = new Point(103, 362);
+            cmbCamera.Margin = new Padding(9, 10, 9, 10);
+            cmbCamera.Name = "cmbCamera";
+            cmbCamera.Size = new Size(898, 56);
+            cmbCamera.TabIndex = 8;
+            cmbCamera.SelectedIndexChanged += cmbCamera_SelectedIndexChanged;
+            // 
+            // FrmSettings
             // 
             AutoScaleDimensions = new SizeF(20F, 48F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 38, 71);
-            ClientSize = new Size(1214, 679);
+            ClientSize = new Size(1214, 789);
+            Controls.Add(label1);
+            Controls.Add(cmbCamera);
             Controls.Add(btnStop);
             Controls.Add(label);
-            Controls.Add(comboBox);
+            Controls.Add(cmbResolution);
             Controls.Add(lblTitleSettings);
             ForeColor = Color.White;
             FormBorderStyle = FormBorderStyle.None;
@@ -132,8 +154,10 @@
         #endregion
 
         private Label label;
-        private ComboBox comboBox;
+        private ComboBox cmbResolution;
         private Label lblTitleSettings;
         private Button btnStop;
+        private Label label1;
+        private ComboBox cmbCamera;
     }
 }

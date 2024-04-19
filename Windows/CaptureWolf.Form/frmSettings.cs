@@ -1,8 +1,11 @@
-﻿namespace CaptureWolf.UI
+﻿using AForge.Video.DirectShow;
+
+namespace CaptureWolf.UI
 {
     public partial class FrmSettings : Form
     {
         public event Action SettingsChanged;
+        private bool _isLoaded = false;
 
         public FrmSettings()
         {
@@ -17,21 +20,32 @@
 
         private void frmSettings_Load(object sender, EventArgs e)
         {
-            var webcam = new WebCam(); // Initialize with your desired frame rate
+            var webcam = new WebCam(Properties.Settings.Default.Camera); // Initialize with your desired frame rate
             webcam.Start(); // Start the webcam
 
             try
             {
+                var devices = webcam.GetCamList();
+                foreach (FilterInfo device in devices)
+                {
+                    cmbCamera.Items.Add(device.Name);
+                }
+
+                var selectedCamera = Properties.Settings.Default.Camera;
+                if (!string.IsNullOrEmpty(selectedCamera))
+                {
+                    cmbCamera.SelectedItem = selectedCamera;
+                }
+
                 var resolutions = webcam.GetAvailableResolutions();
                 foreach (var resolution in resolutions)
                 {
-                    comboBox.Items.Add($"{resolution.Width} x {resolution.Height}");
+                    cmbResolution.Items.Add($"{resolution.Width} x {resolution.Height}");
                 }
 
-                var selectedResolution = Properties.Settings.Default.Resolution;
-                if (!string.IsNullOrEmpty(selectedResolution))
+                if (!string.IsNullOrEmpty(Properties.Settings.Default.Resolution))
                 {
-                    comboBox.SelectedItem = selectedResolution;
+                    cmbResolution.SelectedItem = Properties.Settings.Default.Resolution;
                 }
             }
             catch (Exception ex)
@@ -42,13 +56,52 @@
             {
                 webcam.Stop(); // Stop the webcam
             }
+
+            _isLoaded = true;
         }
 
         private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            // Store the selected resolution in the settings
-            Properties.Settings.Default.Resolution = comboBox.SelectedItem?.ToString();
+            if (!_isLoaded)
+                return;
+            Properties.Settings.Default.Resolution = cmbResolution.SelectedItem?.ToString();
             Properties.Settings.Default.Save();
+        }
+
+        private void cmbCamera_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (!_isLoaded)
+                return;
+            Properties.Settings.Default.Camera = cmbCamera.SelectedItem?.ToString();
+            Properties.Settings.Default.Resolution = null; // Reset
+            Properties.Settings.Default.Save();
+            
+            cmbResolution.Items.Clear();
+            var webcam = new WebCam(Properties.Settings.Default.Camera);
+            webcam.Start();
+
+            try
+            {
+                var resolutions = webcam.GetAvailableResolutions();
+                foreach (var resolution in resolutions)
+                {
+                    cmbResolution.Items.Add($"{resolution.Width} x {resolution.Height}");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                webcam.Stop(); // Stop the webcam
+            }
+
+            SettingsHelper.InitializeSettingsIfEmpty();
+            if (!string.IsNullOrEmpty(Properties.Settings.Default.Resolution))
+            {
+                cmbResolution.SelectedItem = Properties.Settings.Default.Resolution;
+            }
         }
     }
 }
