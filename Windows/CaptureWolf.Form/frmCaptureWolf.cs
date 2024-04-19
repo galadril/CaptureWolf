@@ -114,7 +114,7 @@ public partial class FrmCaptureWolf : Form
             return;
         }
 
-        var webcam = new WebCam(1); // Initialize with your desired frame rate
+        var webcam = new WebCam();
         webcam.Start(); // Start the webcam
         var resolutions = webcam.GetAvailableResolutions();
 

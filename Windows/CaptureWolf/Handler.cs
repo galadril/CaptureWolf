@@ -1,6 +1,4 @@
 ﻿using Gma.System.MouseKeyHook;
-using System;
-using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -124,7 +122,7 @@ public static class Handler
     {
         try
         {
-            camera = new WebCam(FrameSize, 30);
+            camera = new WebCam(FrameSize);
             camera.Start();
 
             Image capturedImage = null;

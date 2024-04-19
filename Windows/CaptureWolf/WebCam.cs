@@ -1,22 +1,19 @@
 ﻿using AForge.Video;
 using AForge.Video.DirectShow;
-using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.Linq;
 
 namespace CaptureWolf
 {
-    public class WebCam(int frameRate)
+    public class WebCam()
     {
-        private readonly int _frameRate = frameRate;
         public Bitmap CurrentImage = null;
         private Size? _frameSize;
         private FilterInfoCollection _videoDevices = null;
         private VideoCaptureDevice _videoSource = null;
         public Func<Image, bool> OnCurrentImageChanged;
 
-        public WebCam(Size frameSize, int frameRate) : this(frameRate)
+        public WebCam(Size frameSize) : this()
         {
             this._frameSize = frameSize;
         }

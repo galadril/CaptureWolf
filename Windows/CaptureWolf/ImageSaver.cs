@@ -1,6 +1,4 @@
-﻿using System;
-using System.ComponentModel;
-using System.Drawing;
+﻿using System.ComponentModel;
 
 namespace CaptureWolf;
 
@@ -42,7 +40,7 @@ public class ImageSaver
 
         var maxLabelWidth = imageWithWatermark.Width * 0.7f; // 80% of image width
         var font = new Font("Arial", 10); // Start with a base font size
-        var text = "Thanks for keeping me sharp!";
+        const string text = "Thanks for keeping me sharp!";
         var size = graphics.MeasureString(text, font);
 
         // Increase font size until the text width exceeds the maximum label width

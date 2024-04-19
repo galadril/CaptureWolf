@@ -17,7 +17,7 @@
 
         private void frmSettings_Load(object sender, EventArgs e)
         {
-            var webcam = new WebCam(1); // Initialize with your desired frame rate
+            var webcam = new WebCam(); // Initialize with your desired frame rate
             webcam.Start(); // Start the webcam
 
             try
