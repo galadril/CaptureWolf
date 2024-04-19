@@ -45,7 +45,7 @@ struct CaptureView: View {
                     .padding()
             }
             
-            Toggle("Minimize everything", isOn: $hideWindows)
+            Toggle("Minimize all windows", isOn: $hideWindows)
             
             Button(action: {
                 if(self.hideWindows) {
