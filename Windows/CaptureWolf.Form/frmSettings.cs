@@ -58,6 +58,7 @@ namespace CaptureWolf.UI
             }
 
             _isLoaded = true;
+            chkbMinimize.Checked = Properties.Settings.Default.Minimize;
         }
 
         private void comboBox_SelectedIndexChanged(object sender, EventArgs e)
@@ -75,7 +76,7 @@ namespace CaptureWolf.UI
             Properties.Settings.Default.Camera = cmbCamera.SelectedItem?.ToString();
             Properties.Settings.Default.Resolution = null; // Reset
             Properties.Settings.Default.Save();
-            
+
             cmbResolution.Items.Clear();
             var webcam = new WebCam(Properties.Settings.Default.Camera);
             webcam.Start();
@@ -102,6 +103,14 @@ namespace CaptureWolf.UI
             {
                 cmbResolution.SelectedItem = Properties.Settings.Default.Resolution;
             }
+        }
+
+        private void chkbMinimize_CheckedChanged(object sender, EventArgs e)
+        {
+            if (!_isLoaded)
+                return;
+
+            Properties.Settings.Default.Minimize = chkbMinimize.Checked;
         }
     }
 }

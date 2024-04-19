@@ -1,4 +1,5 @@
-﻿using Gma.System.MouseKeyHook;
+﻿using System.Diagnostics;
+using Gma.System.MouseKeyHook;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -98,13 +99,18 @@ public static class Handler
 
     [DllImport("user32.dll")]
     public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
-
+    
     public static void MinimizeAll()
     {
         keybd_event(VK_LWIN, 0, 0, 0);
         keybd_event(VK_D, 0, 0, 0);
         keybd_event(VK_D, 0, KEYEVENTF_KEYUP, 0);
         keybd_event(VK_LWIN, 0, KEYEVENTF_KEYUP, 0);
+    }
+    
+    public static void MinimizeThisApplication()
+    {
+        ShowWindow(Process.GetCurrentProcess().MainWindowHandle, SwMinimize);
     }
 
     [DllImport("user32.dll", SetLastError = true)]

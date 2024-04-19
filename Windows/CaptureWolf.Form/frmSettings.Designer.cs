@@ -34,11 +34,12 @@
             btnStop = new Button();
             label1 = new Label();
             cmbCamera = new ComboBox();
+            chkbMinimize = new CheckBox();
             SuspendLayout();
             // 
             // label
             // 
-            label.Location = new Point(103, 494);
+            label.Location = new Point(119, 707);
             label.Margin = new Padding(9, 0, 9, 0);
             label.Name = "label";
             label.Size = new Size(446, 74);
@@ -47,7 +48,7 @@
             // 
             // cmbResolution
             // 
-            cmbResolution.Location = new Point(103, 577);
+            cmbResolution.Location = new Point(119, 790);
             cmbResolution.Margin = new Padding(9, 10, 9, 10);
             cmbResolution.Name = "cmbResolution";
             cmbResolution.Size = new Size(898, 56);
@@ -84,7 +85,7 @@
             // 
             // label1
             // 
-            label1.Location = new Point(103, 279);
+            label1.Location = new Point(119, 492);
             label1.Margin = new Padding(9, 0, 9, 0);
             label1.Name = "label1";
             label1.Size = new Size(446, 74);
@@ -93,25 +94,35 @@
             // 
             // cmbCamera
             // 
-            cmbCamera.Location = new Point(103, 362);
+            cmbCamera.Location = new Point(119, 575);
             cmbCamera.Margin = new Padding(9, 10, 9, 10);
             cmbCamera.Name = "cmbCamera";
             cmbCamera.Size = new Size(898, 56);
             cmbCamera.TabIndex = 8;
             cmbCamera.SelectedIndexChanged += cmbCamera_SelectedIndexChanged;
             // 
+            // chkbMinimize
+            // 
+            chkbMinimize.Location = new Point(119, 304);
+            chkbMinimize.Name = "chkbMinimize";
+            chkbMinimize.Size = new Size(887, 117);
+            chkbMinimize.TabIndex = 9;
+            chkbMinimize.Text = "Minimize everything";
+            chkbMinimize.CheckedChanged += chkbMinimize_CheckedChanged;
+            // 
             // FrmSettings
             // 
             AutoScaleDimensions = new SizeF(20F, 48F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 38, 71);
-            ClientSize = new Size(1214, 789);
+            ClientSize = new Size(1214, 1021);
             Controls.Add(label1);
             Controls.Add(cmbCamera);
             Controls.Add(btnStop);
             Controls.Add(label);
             Controls.Add(cmbResolution);
             Controls.Add(lblTitleSettings);
+            Controls.Add(chkbMinimize);
             ForeColor = Color.White;
             FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(9, 10, 9, 10);
@@ -159,5 +170,6 @@
         private Button btnStop;
         private Label label1;
         private ComboBox cmbCamera;
+        private CheckBox chkbMinimize;
     }
 }

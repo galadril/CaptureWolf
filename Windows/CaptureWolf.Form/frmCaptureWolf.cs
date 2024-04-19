@@ -21,7 +21,14 @@ public partial class FrmCaptureWolf : Form
         LoadPreferences();
 
         Handler.PreventScreenSaver(true);
-        Handler.MinimizeAll();
+        if (Properties.Settings.Default.Minimize)
+        {
+            Handler.MinimizeAll();
+        }
+        else
+        {
+            Handler.MinimizeThisApplication();
+        }
 
         Thread.Sleep(2000);
         Handler.HookupEvents(OnCapture);

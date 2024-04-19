@@ -46,5 +46,17 @@ namespace CaptureWolf.UI.Properties {
                 this["Camera"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool Minimize {
+            get {
+                return ((bool)(this["Minimize"]));
+            }
+            set {
+                this["Minimize"] = value;
+            }
+        }
     }
 }
