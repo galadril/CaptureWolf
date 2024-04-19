@@ -1,0 +1,20 @@
+default_platform(:mac)
+#xcodes(version: "15.2.0") 
+
+platform :mac do
+    desc "Build, and create a DMG file"
+
+    lane :test do
+      build
+      dmg(path: "builds", output_path: "capture-wolf.dmg")
+    end
+
+    desc "Build the IOS Application"
+    lane :build do
+      gym(
+        clean: true,
+        export_method: "mac-application",
+        output_directory: "./builds"
+      )
+    end
+end
