@@ -40,11 +40,10 @@ partial class FrmCaptureWolf : Form
         startButton.FlatAppearance.BorderColor = Color.FromArgb(0, 38, 71);
         startButton.FlatStyle = FlatStyle.Flat;
         startButton.ForeColor = Color.White;
-        startButton.Location = new Point(479, 917);
-        startButton.Margin = new Padding(9, 10, 9, 10);
+        startButton.Location = new Point(168, 291);
         startButton.Name = "startButton";
         startButton.Radius = 50;
-        startButton.Size = new Size(526, 158);
+        startButton.Size = new Size(184, 49);
         startButton.TabIndex = 0;
         startButton.Text = "Start Luring";
         startButton.UseVisualStyleBackColor = false;
@@ -55,24 +54,22 @@ partial class FrmCaptureWolf : Form
         pictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         pictureBox.Image = (Image)resources.GetObject("pictureBox.Image");
         pictureBox.ImageLocation = "";
-        pictureBox.Location = new Point(34, 134);
-        pictureBox.Margin = new Padding(9, 10, 9, 10);
+        pictureBox.Location = new Point(12, 42);
         pictureBox.Name = "pictureBox";
-        pictureBox.Size = new Size(1414, 749);
+        pictureBox.Size = new Size(495, 234);
         pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
         pictureBox.TabIndex = 1;
         pictureBox.TabStop = false;
-        pictureBox.Click += pictureBox_Click;
+        pictureBox.Click += PictureBox_Click;
         // 
         // explainLabel
         // 
         explainLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         explainLabel.BackColor = Color.FromArgb(0, 0, 23);
         explainLabel.ForeColor = Color.White;
-        explainLabel.Location = new Point(18, 1132);
-        explainLabel.Margin = new Padding(9, 0, 9, 0);
+        explainLabel.Location = new Point(6, 354);
         explainLabel.Name = "explainLabel";
-        explainLabel.Size = new Size(1440, 72);
+        explainLabel.Size = new Size(504, 22);
         explainLabel.TabIndex = 2;
         explainLabel.Text = "Sheep stick together, start luring in the Wolves!";
         explainLabel.TextAlign = ContentAlignment.MiddleCenter;
@@ -84,14 +81,13 @@ partial class FrmCaptureWolf : Form
         btnStop.FlatAppearance.BorderColor = Color.Gray;
         btnStop.FlatStyle = FlatStyle.Flat;
         btnStop.ForeColor = Color.White;
-        btnStop.Location = new Point(1383, 19);
-        btnStop.Margin = new Padding(9, 10, 9, 10);
+        btnStop.Location = new Point(484, 6);
         btnStop.Name = "btnStop";
-        btnStop.Size = new Size(89, 86);
+        btnStop.Size = new Size(31, 27);
         btnStop.TabIndex = 3;
         btnStop.Text = "X";
         btnStop.UseVisualStyleBackColor = false;
-        btnStop.Click += btnStop_Click;
+        btnStop.Click += BtnStop_Click;
         // 
         // btnConfig
         // 
@@ -100,21 +96,20 @@ partial class FrmCaptureWolf : Form
         btnConfig.FlatAppearance.BorderColor = Color.Gray;
         btnConfig.FlatStyle = FlatStyle.Flat;
         btnConfig.ForeColor = Color.White;
-        btnConfig.Location = new Point(1277, 19);
-        btnConfig.Margin = new Padding(9, 10, 9, 10);
+        btnConfig.Location = new Point(447, 6);
         btnConfig.Name = "btnConfig";
-        btnConfig.Size = new Size(89, 86);
+        btnConfig.Size = new Size(31, 27);
         btnConfig.TabIndex = 4;
         btnConfig.Text = "⚙";
         btnConfig.UseVisualStyleBackColor = false;
-        btnConfig.Click += btnConfig_Click;
+        btnConfig.Click += BtnConfig_Click;
         // 
         // FrmCaptureWolf
         // 
-        AutoScaleDimensions = new SizeF(20F, 48F);
+        AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
         BackColor = Color.FromArgb(0, 0, 23);
-        ClientSize = new Size(1489, 1229);
+        ClientSize = new Size(521, 384);
         Controls.Add(btnConfig);
         Controls.Add(btnStop);
         Controls.Add(explainLabel);
@@ -123,7 +118,6 @@ partial class FrmCaptureWolf : Form
         ForeColor = Color.White;
         FormBorderStyle = FormBorderStyle.None;
         Icon = (Icon)resources.GetObject("$this.Icon");
-        Margin = new Padding(9, 10, 9, 10);
         MaximizeBox = false;
         Name = "FrmCaptureWolf";
         Text = "CaptureWolves";

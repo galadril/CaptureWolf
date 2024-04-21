@@ -36,7 +36,7 @@ public partial class FrmCaptureWolf : Form
 
     private void WhenCompleted(object sender, RunWorkerCompletedEventArgs e)
     {
-        explainLabel.Text = e.Error != null
+        explainLabel.Text = e?.Error != null
             ? $"Could not save the image."
             : $"Image saved successfully!";
     }
@@ -74,23 +74,23 @@ public partial class FrmCaptureWolf : Form
         return true;
     }
 
-    private void pictureBox_Click(object sender, EventArgs e)
+    private void PictureBox_Click(object sender, EventArgs e)
     {
         if (!ImageSet || pictureBox.Image == null)
             return;
 
         using var sfd = new SaveFileDialog();
-        sfd.FileName = $"capture-{Guid.NewGuid().ToString()}";
+        sfd.FileName = $"capture-{Guid.NewGuid()}";
         sfd.Filter = @"Images|*.png;*.bmp;*.jpg";
         sfd.DefaultExt = "png";
 
         if (sfd.ShowDialog() == DialogResult.OK)
         {
-            _imageSaver.SaveImage(sfd.FileName, pictureBox.Image);
+            _imageSaver.SaveImage(sfd.FileName, pictureBox.Image, Properties.Settings.Default.Watermark);
         }
     }
 
-    private void btnStop_Click(object sender, EventArgs e)
+    private void BtnStop_Click(object sender, EventArgs e)
     {
         Application.Exit();
     }
@@ -107,7 +107,7 @@ public partial class FrmCaptureWolf : Form
         toolTip.SetToolTip(this.pictureBox, "Click the image to save it.");
     }
 
-    private void btnConfig_Click(object sender, EventArgs e)
+    private void BtnConfig_Click(object sender, EventArgs e)
     {
         var settingsForm = new FrmSettings();
         settingsForm.StartPosition = FormStartPosition.CenterParent;
