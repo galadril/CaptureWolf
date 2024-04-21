@@ -1,9 +1,11 @@
-﻿namespace CaptureWolf.UI;
+﻿using CaptureWolf.UI.Controls;
+
+namespace CaptureWolf.UI;
 
 partial class FrmCaptureWolf : Form
 {
     private System.ComponentModel.IContainer components = null;
-    private System.Windows.Forms.Button startButton;
+    private RoundedButton startButton;
     private System.Windows.Forms.PictureBox pictureBox;
     private System.Windows.Forms.Label explainLabel;
     private bool mouseDown;
@@ -23,7 +25,7 @@ partial class FrmCaptureWolf : Form
     private void InitializeComponent()
     {
         System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmCaptureWolf));
-        startButton = new Button();
+        startButton = new RoundedButton();
         pictureBox = new PictureBox();
         explainLabel = new Label();
         btnStop = new Button();
@@ -35,12 +37,13 @@ partial class FrmCaptureWolf : Form
         // 
         startButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         startButton.BackColor = Color.FromArgb(0, 38, 71);
-        startButton.FlatAppearance.BorderColor = Color.Gray;
+        startButton.FlatAppearance.BorderColor = Color.FromArgb(0, 38, 71);
         startButton.FlatStyle = FlatStyle.Flat;
         startButton.ForeColor = Color.White;
-        startButton.Location = new Point(12, 279);
+        startButton.Location = new Point(168, 291);
         startButton.Name = "startButton";
-        startButton.Size = new Size(495, 57);
+        startButton.Radius = 50;
+        startButton.Size = new Size(184, 49);
         startButton.TabIndex = 0;
         startButton.Text = "Start Luring";
         startButton.UseVisualStyleBackColor = false;
@@ -51,25 +54,25 @@ partial class FrmCaptureWolf : Form
         pictureBox.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
         pictureBox.Image = (Image)resources.GetObject("pictureBox.Image");
         pictureBox.ImageLocation = "";
-        pictureBox.Location = new Point(12, 39);
+        pictureBox.Location = new Point(12, 42);
         pictureBox.Name = "pictureBox";
         pictureBox.Size = new Size(495, 234);
         pictureBox.SizeMode = PictureBoxSizeMode.Zoom;
         pictureBox.TabIndex = 1;
         pictureBox.TabStop = false;
-        pictureBox.Click += pictureBox_Click;
+        pictureBox.Click += PictureBox_Click;
         // 
         // explainLabel
         // 
         explainLabel.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-        explainLabel.AutoSize = true;
         explainLabel.BackColor = Color.FromArgb(0, 0, 23);
         explainLabel.ForeColor = Color.White;
-        explainLabel.Location = new Point(12, 351);
+        explainLabel.Location = new Point(6, 354);
         explainLabel.Name = "explainLabel";
-        explainLabel.Size = new Size(254, 15);
+        explainLabel.Size = new Size(504, 22);
         explainLabel.TabIndex = 2;
         explainLabel.Text = "Sheep stick together, start luring in the Wolves!";
+        explainLabel.TextAlign = ContentAlignment.MiddleCenter;
         // 
         // btnStop
         // 
@@ -84,7 +87,7 @@ partial class FrmCaptureWolf : Form
         btnStop.TabIndex = 3;
         btnStop.Text = "X";
         btnStop.UseVisualStyleBackColor = false;
-        btnStop.Click += btnStop_Click;
+        btnStop.Click += BtnStop_Click;
         // 
         // btnConfig
         // 
@@ -99,9 +102,9 @@ partial class FrmCaptureWolf : Form
         btnConfig.TabIndex = 4;
         btnConfig.Text = "⚙";
         btnConfig.UseVisualStyleBackColor = false;
-        btnConfig.Click += btnConfig_Click;
+        btnConfig.Click += BtnConfig_Click;
         // 
-        // frmCaptureWolf
+        // FrmCaptureWolf
         // 
         AutoScaleDimensions = new SizeF(7F, 15F);
         AutoScaleMode = AutoScaleMode.Font;
@@ -123,7 +126,6 @@ partial class FrmCaptureWolf : Form
         MouseUp += Form_MouseUp;
         ((System.ComponentModel.ISupportInitialize)pictureBox).EndInit();
         ResumeLayout(false);
-        PerformLayout();
     }
 
     private void Form_MouseDown(object sender, MouseEventArgs e)

@@ -34,35 +34,34 @@
             btnStop = new Button();
             label1 = new Label();
             cmbCamera = new ComboBox();
+            chkbMinimize = new CheckBox();
+            chkbWatermark = new CheckBox();
             SuspendLayout();
             // 
             // label
             // 
-            label.Location = new Point(103, 494);
-            label.Margin = new Padding(9, 0, 9, 0);
+            label.Location = new Point(42, 243);
             label.Name = "label";
-            label.Size = new Size(446, 74);
+            label.Size = new Size(156, 23);
             label.TabIndex = 0;
             label.Text = "Resolution";
             // 
             // cmbResolution
             // 
-            cmbResolution.Location = new Point(103, 577);
-            cmbResolution.Margin = new Padding(9, 10, 9, 10);
+            cmbResolution.Location = new Point(42, 265);
             cmbResolution.Name = "cmbResolution";
-            cmbResolution.Size = new Size(898, 56);
+            cmbResolution.Size = new Size(317, 23);
             cmbResolution.TabIndex = 1;
-            cmbResolution.SelectedIndexChanged += comboBox_SelectedIndexChanged;
+            cmbResolution.SelectedIndexChanged += ComboBox_SelectedIndexChanged;
             // 
             // lblTitleSettings
             // 
             lblTitleSettings.AutoSize = true;
             lblTitleSettings.Font = new Font("Segoe UI Semibold", 15.75F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblTitleSettings.ForeColor = Color.White;
-            lblTitleSettings.Location = new Point(103, 128);
-            lblTitleSettings.Margin = new Padding(9, 0, 9, 0);
+            lblTitleSettings.Location = new Point(36, 40);
             lblTitleSettings.Name = "lblTitleSettings";
-            lblTitleSettings.Size = new Size(366, 85);
+            lblTitleSettings.Size = new Size(123, 30);
             lblTitleSettings.TabIndex = 5;
             lblTitleSettings.Text = "Preferences";
             // 
@@ -73,10 +72,9 @@
             btnStop.FlatAppearance.BorderColor = Color.Gray;
             btnStop.FlatStyle = FlatStyle.Flat;
             btnStop.ForeColor = Color.White;
-            btnStop.Location = new Point(1107, 19);
-            btnStop.Margin = new Padding(9, 10, 9, 10);
+            btnStop.Location = new Point(387, 6);
             btnStop.Name = "btnStop";
-            btnStop.Size = new Size(89, 86);
+            btnStop.Size = new Size(31, 27);
             btnStop.TabIndex = 6;
             btnStop.Text = "X";
             btnStop.UseVisualStyleBackColor = false;
@@ -84,41 +82,60 @@
             // 
             // label1
             // 
-            label1.Location = new Point(103, 279);
-            label1.Margin = new Padding(9, 0, 9, 0);
+            label1.Location = new Point(42, 185);
             label1.Name = "label1";
-            label1.Size = new Size(446, 74);
+            label1.Size = new Size(156, 23);
             label1.TabIndex = 7;
             label1.Text = "Camera";
             // 
             // cmbCamera
             // 
-            cmbCamera.Location = new Point(103, 362);
-            cmbCamera.Margin = new Padding(9, 10, 9, 10);
+            cmbCamera.Location = new Point(42, 207);
             cmbCamera.Name = "cmbCamera";
-            cmbCamera.Size = new Size(898, 56);
+            cmbCamera.Size = new Size(317, 23);
             cmbCamera.TabIndex = 8;
-            cmbCamera.SelectedIndexChanged += cmbCamera_SelectedIndexChanged;
+            cmbCamera.SelectedIndexChanged += CmbCamera_SelectedIndexChanged;
+            // 
+            // chkbMinimize
+            // 
+            chkbMinimize.Location = new Point(42, 92);
+            chkbMinimize.Margin = new Padding(1);
+            chkbMinimize.Name = "chkbMinimize";
+            chkbMinimize.Size = new Size(310, 37);
+            chkbMinimize.TabIndex = 9;
+            chkbMinimize.Text = "Minimize everything";
+            chkbMinimize.CheckedChanged += ChkbMinimize_CheckedChanged;
+            // 
+            // chkbWatermark
+            // 
+            chkbWatermark.Location = new Point(42, 135);
+            chkbWatermark.Margin = new Padding(1);
+            chkbWatermark.Name = "chkbWatermark";
+            chkbWatermark.Size = new Size(310, 37);
+            chkbWatermark.TabIndex = 10;
+            chkbWatermark.Text = "Add watermark frame";
+            chkbWatermark.CheckedChanged += ChkbWatermark_CheckedChanged;
             // 
             // FrmSettings
             // 
-            AutoScaleDimensions = new SizeF(20F, 48F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 38, 71);
-            ClientSize = new Size(1214, 789);
+            ClientSize = new Size(425, 319);
+            Controls.Add(chkbWatermark);
             Controls.Add(label1);
             Controls.Add(cmbCamera);
             Controls.Add(btnStop);
             Controls.Add(label);
             Controls.Add(cmbResolution);
             Controls.Add(lblTitleSettings);
+            Controls.Add(chkbMinimize);
             ForeColor = Color.White;
             FormBorderStyle = FormBorderStyle.None;
-            Margin = new Padding(9, 10, 9, 10);
             MaximizeBox = false;
             Name = "FrmSettings";
             Text = "Preferences";
-            Load += frmSettings_Load;
+            Load += FrmSettings_Load;
             MouseDown += Form_MouseDown;
             MouseMove += Form_MouseMove;
             MouseUp += Form_MouseUp;
@@ -159,5 +176,7 @@
         private Button btnStop;
         private Label label1;
         private ComboBox cmbCamera;
+        private CheckBox chkbMinimize;
+        private CheckBox chkbWatermark;
     }
 }

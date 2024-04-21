@@ -4,7 +4,7 @@ namespace CaptureWolf;
 
 public class ImageSaver
 {
-    private readonly BackgroundWorker _worker = new BackgroundWorker();
+    private readonly BackgroundWorker _worker = new();
     private EventHandler<RunWorkerCompletedEventArgs> _whenCompleted;
 
     public ImageSaver()
@@ -13,9 +13,17 @@ public class ImageSaver
         _worker.RunWorkerCompleted += Worker_RunWorkerCompleted;
     }
 
-    public void SaveImage(string fileName, Image image)
+    public void SaveImage(string fileName, Image image, bool addWaterMark)
     {
-        _worker.RunWorkerAsync(Tuple.Create(fileName, image));
+        if (addWaterMark)
+        {
+            _worker.RunWorkerAsync(Tuple.Create(fileName, image));
+        }
+        else
+        {
+            image.Save(fileName);
+            _whenCompleted?.Invoke(this, null);
+        }
     }
 
     private void Worker_DoWork(object sender, DoWorkEventArgs e)
@@ -62,7 +70,6 @@ public class ImageSaver
         imageWithWatermark.Save(fileName);
         e.Result = fileName;
     }
-
 
     private void Worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
     {
