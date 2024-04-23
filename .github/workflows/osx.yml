@@ -59,7 +59,7 @@ jobs:
           project-path: OSX
 
       - name: Deploy app
-        run: bundle exec fastlane release
+        run: bundle exec fastlane mac release --verbose
         env:
           SIGNING_CERT_PASSWORD: ${{ secrets.SIGNING_CERT_PASSWORD }}
           SIGNING_CERT_FILE_PATH: signing-cert.cer
