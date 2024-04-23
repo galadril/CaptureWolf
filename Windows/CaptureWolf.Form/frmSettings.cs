@@ -124,5 +124,23 @@ namespace CaptureWolf.UI
             Properties.Settings.Default.Minimize = chkbMinimize.Checked;
             Properties.Settings.Default.Save();
         }
+        
+        private void btnReport_Click(object sender, EventArgs e)
+        {
+            const string url = "https://github.com/galadril/CaptureWolf/issues/new/choose";
+            System.Diagnostics.Process.Start("explorer.exe", url);
+        }
+
+        private void btnContribute_Click(object sender, EventArgs e)
+        {
+            const string  url = "https://github.com/galadril/CaptureWolf";
+            System.Diagnostics.Process.Start("explorer.exe", url);
+        }
+
+        private void btnLatestVersion_Click(object sender, EventArgs e)
+        {
+            const string  url = "https://github.com/galadril/CaptureWolf/releases/latest";
+            System.Diagnostics.Process.Start("explorer.exe", url);
+        }
     }
 }
