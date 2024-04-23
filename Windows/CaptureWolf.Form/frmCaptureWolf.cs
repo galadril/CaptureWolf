@@ -2,14 +2,15 @@ using System.ComponentModel;
 
 namespace CaptureWolf.UI;
 
-public partial class frmCaptureWolf : Form
+public partial class FrmCaptureWolf : Form
 {
     public bool ImageSet = false;
     private readonly ImageSaver _imageSaver;
 
-    public frmCaptureWolf()
+    public FrmCaptureWolf()
     {
         InitializeComponent();
+        SettingsHelper.InitializeSettingsIfEmpty();
 
         _imageSaver = new ImageSaver();
         _imageSaver.SetOnCompletedEvent(WhenCompleted);
@@ -17,8 +18,17 @@ public partial class frmCaptureWolf : Form
 
     private void startButton_Click(object sender, EventArgs e)
     {
+        LoadPreferences();
+
         Handler.PreventScreenSaver(true);
-        Handler.MinimizeAll();
+        if (Properties.Settings.Default.Minimize)
+        {
+            Handler.MinimizeAll();
+        }
+        else
+        {
+            Handler.MinimizeThisApplication();
+        }
 
         Thread.Sleep(2000);
         Handler.HookupEvents(OnCapture);
@@ -26,9 +36,25 @@ public partial class frmCaptureWolf : Form
 
     private void WhenCompleted(object sender, RunWorkerCompletedEventArgs e)
     {
-        explainLabel.Text = e.Error != null
+        explainLabel.Text = e?.Error != null
             ? $"Could not save the image."
             : $"Image saved successfully!";
+    }
+
+    private void LoadPreferences()
+    {
+        var resolution = Properties.Settings.Default.Resolution;
+        if (string.IsNullOrEmpty(resolution))
+        {
+            return;
+        }
+
+        var parts = resolution.Split('x');
+        var width = int.Parse(parts[0].Trim());
+        var height = int.Parse(parts[1].Trim());
+        var frameSize = new Size(width, height);
+        Handler.FrameSize = frameSize;
+        Handler.WebCamName = Properties.Settings.Default.Camera;
     }
 
     private bool OnCapture(Image image)
@@ -43,28 +69,28 @@ public partial class frmCaptureWolf : Form
             WindowState = FormWindowState.Normal;
             Activate();
         });
-        
+
         SetupTooltip();
         return true;
     }
 
-    private void pictureBox_Click(object sender, EventArgs e)
+    private void PictureBox_Click(object sender, EventArgs e)
     {
         if (!ImageSet || pictureBox.Image == null)
             return;
 
         using var sfd = new SaveFileDialog();
-        sfd.FileName = $"capture-{Guid.NewGuid().ToString()}";
+        sfd.FileName = $"capture-{Guid.NewGuid()}";
         sfd.Filter = @"Images|*.png;*.bmp;*.jpg";
         sfd.DefaultExt = "png";
 
         if (sfd.ShowDialog() == DialogResult.OK)
         {
-            _imageSaver.SaveImage(sfd.FileName, pictureBox.Image);
+            _imageSaver.SaveImage(sfd.FileName, pictureBox.Image, Properties.Settings.Default.Watermark);
         }
     }
 
-    private void btnStop_Click(object sender, EventArgs e)
+    private void BtnStop_Click(object sender, EventArgs e)
     {
         Application.Exit();
     }
@@ -79,5 +105,12 @@ public partial class frmCaptureWolf : Form
         toolTip.BackColor = Color.FromArgb(50, 50, 50); // Dark gray
         toolTip.ForeColor = Color.White;
         toolTip.SetToolTip(this.pictureBox, "Click the image to save it.");
+    }
+
+    private void BtnConfig_Click(object sender, EventArgs e)
+    {
+        var settingsForm = new FrmSettings();
+        settingsForm.StartPosition = FormStartPosition.CenterParent;
+        settingsForm.ShowDialog();
     }
 }

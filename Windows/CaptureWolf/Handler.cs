@@ -1,7 +1,5 @@
-﻿using Gma.System.MouseKeyHook;
-using System;
-using System.Diagnostics;
-using System.Drawing;
+﻿using System.Diagnostics;
+using Gma.System.MouseKeyHook;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -10,7 +8,7 @@ namespace CaptureWolf;
 
 public static class Handler
 {
-    public const Int32 SwMinimize = 6;
+    public const int SwMinimize = 6;
     public const int HwndBroadcast = 0xFFFF;
     public const int ScMonitorpower = 0xF170;
     public const int ShutOffDisplay = 2;
@@ -21,6 +19,9 @@ public static class Handler
     public const byte KEYEVENTF_KEYUP = 0x02;
     public const byte VK_LWIN = 0x5B;
     public const byte VK_D = 0x44;
+    
+    public static Size FrameSize { get; set; }
+    public static string WebCamName { get; set; }
 
     [FlagsAttribute]
     public enum ExecutionState : uint
@@ -47,9 +48,16 @@ public static class Handler
     {
         _onlyOnce = false; //reset
         onCapture = onCaptureEvent;
-
-        Hook.GlobalEvents().MouseMove += GlobalHook_MouseMove;
-        Hook.GlobalEvents().KeyUp += GlobalHook_KeyUp;
+        
+        try
+        {
+            Hook.GlobalEvents().MouseMove += GlobalHook_MouseMove;
+            Hook.GlobalEvents().KeyUp += GlobalHook_KeyUp;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
     }
 
     private static void GlobalHook_MouseMove(object sender, MouseEventArgs e)
@@ -66,7 +74,6 @@ public static class Handler
         catch (Exception ex)
         {
             Console.WriteLine(ex);
-            throw;
         }
     }
 
@@ -84,7 +91,6 @@ public static class Handler
         catch (Exception ex)
         {
             Console.WriteLine(ex);
-            throw;
         }
     }
 
@@ -93,26 +99,18 @@ public static class Handler
 
     [DllImport("user32.dll")]
     public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
-
-
+    
     public static void MinimizeAll()
     {
-        var thisProcess =
-            Process.GetCurrentProcess();
-        var processes =
-            Process.GetProcesses();
-        foreach (var process in processes)
-        {
-            if (process == thisProcess) continue;
-            var handle = process.MainWindowHandle;
-            if (handle == System.IntPtr.Zero) continue;
-            ShowWindow(handle, SwMinimize);
-        }
-
         keybd_event(VK_LWIN, 0, 0, 0);
         keybd_event(VK_D, 0, 0, 0);
         keybd_event(VK_D, 0, KEYEVENTF_KEYUP, 0);
         keybd_event(VK_LWIN, 0, KEYEVENTF_KEYUP, 0);
+    }
+    
+    public static void MinimizeThisApplication()
+    {
+        ShowWindow(Process.GetCurrentProcess().MainWindowHandle, SwMinimize);
     }
 
     [DllImport("user32.dll", SetLastError = true)]
@@ -129,13 +127,13 @@ public static class Handler
 
     [DllImport("User32.dll", CallingConvention = CallingConvention.StdCall, SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    public static extern bool ShowWindow([In] IntPtr hWnd, [In] Int32 nCmdShow);
+    public static extern bool ShowWindow([In] IntPtr hWnd, [In] int nCmdShow);
 
     public static Image TakeSnapshot()
     {
         try
         {
-            camera = new WebCam(30);
+            camera = new WebCam(FrameSize, WebCamName);
             camera.Start();
 
             Image capturedImage = null;

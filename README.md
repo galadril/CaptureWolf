@@ -1,4 +1,6 @@
-﻿# 🐺 CaptureWolf 🐺
+﻿![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/galadril/CaptureWolf/total?style=for-the-badge&label=Potential%20wolves) 
+
+# 🐺 CaptureWolf 🐺
  
 ![CaptureWolf](https://github.com/galadril/CaptureWolf/assets/14561640/d47d2128-e8bd-46d8-959e-3f2ad8348c9a)
 
