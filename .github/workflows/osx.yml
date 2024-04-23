@@ -42,12 +42,12 @@ jobs:
       - name: Decode signing certificate into a file
         env:
           CERTIFICATE_BASE64: ${{ secrets.SIGNING_CERT }}
-        run: echo $CERTIFICATE_BASE64 | base64 --decode > signing-cert.cer
+        run: echo $CERTIFICATE_BASE64 | base64 --decode > ./cert/signing-cert.cer
       
       - name: Decode signing key into a file
         env:
           KEY_BASE64: ${{ secrets.SIGNING_KEY }}
-        run: echo $KEY_BASE64 | base64 --decode > signing-key.p12
+        run: echo $KEY_BASE64 | base64 --decode > ./cert/signing-key.p12
 
       - name: Install dependencies
         run: bundle install
@@ -62,8 +62,8 @@ jobs:
         run: bundle exec fastlane mac release --verbose
         env:
           SIGNING_CERT_PASSWORD: ${{ secrets.SIGNING_CERT_PASSWORD }}
-          SIGNING_CERT_FILE_PATH: signing-cert.cer
-          SIGNING_KEY_FILE_PATH: signing-key.p12
+          SIGNING_CERT_FILE_PATH: ./cert/signing-cert.cer
+          SIGNING_KEY_FILE_PATH: ./cert/signing-key.p12
  
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
