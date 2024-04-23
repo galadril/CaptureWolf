@@ -61,7 +61,7 @@ jobs:
       - name: Deploy app
         run: bundle exec fastlane release
         env:
-          SIGNING_CERT_PASSWORD:  ${{ secrets.SIGNING_CERT_PASSWORD}}
+          SIGNING_CERT_PASSWORD: ${{ secrets.SIGNING_CERT_PASSWORD }}
           SIGNING_CERT_FILE_PATH: signing-cert.cer
           SIGNING_KEY_FILE_PATH: signing-key.p12
  
