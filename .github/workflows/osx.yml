@@ -26,7 +26,7 @@ jobs:
       - name: Cancel Previous Runs
         uses: styfle/cancel-workflow-action@0.9.1
         with:
-          access_token: ${{ github.token }}
+          access_token: ${{ secrets.GITHUB_TOKEN }}
       
       - name: List Xcode installations
         run: sudo ls -1 /Applications | grep "Xcode"
@@ -40,14 +40,10 @@ jobs:
         run: bundle install
       
       - name: Decode signing certificate into a file
-        env:
-          CERTIFICATE_BASE64: ${{ secrets.SIGNING_CERT }}
-        run: echo $CERTIFICATE_BASE64 | base64 --decode > signing-cert.cer
+        run: echo ${{ secrets.CERTIFICATE_BASE64 }} | base64 --decode > signing-cert.cer
       
       - name: Decode signing key into a file
-        env:
-          KEY_BASE64: ${{ secrets.SIGNING_KEY }}
-        run: echo $KEY_BASE64 | base64 --decode > signing-key.p12
+        run: echo ${{ secrets.KEY_BASE64 }} | base64 --decode > signing-key.p12
 
       - uses: yanamura/ios-bump-version@v1
         with:
@@ -56,7 +52,7 @@ jobs:
       - name: Deploy app
         run: bundle exec fastlane release
         env:
-          SIGNING_CERT_PASSWORD:  ${{ secrets.SIGNING_CERT_PASSWORD}}
+          SIGNING_CERT_PASSWORD:  ${{ secrets.SIGNING_CERT_PASSWORD }}
           SIGNING_CERT_FILE_PATH: signing-cert.cer
           SIGNING_KEY_FILE_PATH: signing-key.p12
  
@@ -71,7 +67,3 @@ jobs:
           git add .
           git commit -m "bump version [skip ci]"
           git push origin HEAD
-
-
-      
-      
