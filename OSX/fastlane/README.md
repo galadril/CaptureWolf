@@ -18,7 +18,7 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 ### mac test
 
 ```sh
-[bundle exec] fastlane mac test
+[bundle exec] fastlane mac release
 ```
 
 Build, and create a DMG file
