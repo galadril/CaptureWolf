@@ -1,52 +1,44 @@
-﻿![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/galadril/CaptureWolf/total?style=for-the-badge&label=Potential%20wolves) 
+![Downloads](https://img.shields.io/github/downloads/galadril/CaptureWolf/total?style=for-the-badge&label=Potential%20wolves)
 
 # 🐺 CaptureWolf 🐺
- 
+
 ![CaptureWolf](https://github.com/galadril/CaptureWolf/assets/14561640/d47d2128-e8bd-46d8-959e-3f2ad8348c9a)
 
-Welcome to CaptureWolf, the ultimate tool for catching those sneaky wolves who try to access your PC when you're away. 
+Welcome to CaptureWolf, your ultimate solution for catching those sneaky wolves attempting to access your PC when you're away.
 
 ## 🎯 What is CaptureWolf?
 
-CaptureWolf is a clever application designed to protect your PC from unauthorized access. It creates an illusion that your PC is unlocked, luring in the wolves. But when they try to access it, CaptureWolf springs into action!
+CaptureWolf is an innovative application crafted to safeguard your PC from unauthorized access. It creates a deceptive impression that your PC is unlocked, enticing potential intruders. However, when they attempt to breach security, CaptureWolf swiftly takes action!
 
 ## 🚀 How does it work?
 
-When you're about to leave your PC, simply run CaptureWolf and start the tool. CaptureWolf will then minimize all your windows, making your PC appear as if it's ready for use.
+Simply activate CaptureWolf before stepping away from your PC. It will minimize all active windows, presenting the illusion of accessibility.
 
-But here's the catch: the moment any input is detected (be it keys or mouse), CaptureWolf locks your PC instantly and takes a snapshot from your webcam, capturing the unsuspecting wolf! 📸
+Here's the twist: at the first sign of any input, whether keystrokes or mouse movement, CaptureWolf instantly locks your PC and captures a snapshot from your webcam, exposing the unsuspecting intruder! 📸
 
-## 🎁 Choose Your Version
+## 🎁 Installation
 
-CaptureWolf comes in two flavors:
+Installing CaptureWolf is straightforward:
 
-1. **Console Version**: For those who prefer a minimalist, command-line interface. Just run the CaptureWolfConsole.exe file.
+1. Head to the [latest release](https://github.com/galadril/CaptureWolf/releases/latest).
+2. Download the installer for your operating system (MacOS or Windows).
+3. Execute the downloaded installer.
+4. Follow on-screen instructions to finalize setup.
 
-2. **UI Version**: For those who prefer a graphical user interface. Run the CaptureWolfUI.exe file, or use the installer to set it up.
+## 🐑 Sheep Stick Together!
 
-## 🐑 Sheep stick together!
-
-We believe in the power of community. CaptureWolf currently only works for Windows, but if you'd like to port it for MacOS, we'd love to see your PR!
-
-## 📥 Installation
-
-CaptureWolf is easy to install. Just follow these steps:
-
-1. Download the latest release from the GitHub repository.
-2. Choose your preferred version: Console or UI. (seperate .exe files)
-3. Run the corresponding .exe file, or use the installer for the UI version.
-4. Follow the on-screen instructions to complete the setup.
+We believe in the strength of community. While CaptureWolf currently supports Windows and MacOS, we encourage contributions to further enhance its capabilities.
 
 ## 🤝 Contributing
 
-Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](../../issues).
+We welcome contributions, bug reports, and feature requests! Don't hesitate to visit the [issues page](../../issues).
 
-## 🌟 Show your support
+## 🌟 Show Your Support
 
-Give a ⭐️ if you like this project!
+If you appreciate this project, give it a ⭐️!
 
 ## 📧 Contact
 
-Have any questions? Feel free to reach out!
+Got questions? Feel free to reach out.
 
 Stay safe and happy coding! 🚀
