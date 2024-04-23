@@ -15,13 +15,21 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 ## Mac
 
-### mac test
+### mac release
 
 ```sh
 [bundle exec] fastlane mac release
 ```
 
 Build, and create a DMG file
+
+### mac test
+
+```sh
+[bundle exec] fastlane mac test
+```
+
+
 
 ### mac build
 
@@ -30,6 +38,14 @@ Build, and create a DMG file
 ```
 
 Build the IOS Application
+
+### mac prepare_signing
+
+```sh
+[bundle exec] fastlane mac prepare_signing
+```
+
+Installs signing certificate in the keychain
 
 ----
 

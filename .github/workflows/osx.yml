@@ -5,12 +5,21 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
-    runs-on: macos-14-large
-    environment: prod
+    runs-on: macos-14
 
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}/OSX
+
+    permissions:
+      # Give the default GITHUB_TOKEN write permission to commit and push the
+      # added or changed files to the repository.
+      contents: write
+      
     steps:
       - name: Checkout files
         uses: actions/checkout@v4
@@ -35,42 +44,49 @@ jobs:
         uses: maxim-lobanov/setup-xcode@v1.6.0
         with:
           xcode-version: '15.2.0'
-
-      - name: Install dependencies
-        run: bundle install
       
+      - name: Create Cert folder
+        run: mkdir -p cert
+        
       - name: Decode signing certificate into a file
         env:
           CERTIFICATE_BASE64: ${{ secrets.SIGNING_CERT }}
-        run: echo $CERTIFICATE_BASE64 | base64 --decode > signing-cert.cer
+        run: echo $CERTIFICATE_BASE64 | base64 --decode > ./cert/signing-cert.cer
       
       - name: Decode signing key into a file
         env:
           KEY_BASE64: ${{ secrets.SIGNING_KEY }}
-        run: echo $KEY_BASE64 | base64 --decode > signing-key.p12
+        run: echo $KEY_BASE64 | base64 --decode > ./cert/signing-key.p12
 
-      - uses: yanamura/ios-bump-version@v1
+      - name: Install dependencies
+        run: bundle install
+
+      - name: Bump ios version
+        uses: yanamura/ios-bump-version@v1
         with:
           version: 1.0.5
+          project-path: OSX
 
       - name: Deploy app
-        run: bundle exec fastlane release
+        run: bundle exec fastlane mac release --verbose
         env:
-          SIGNING_CERT_PASSWORD:  ${{ secrets.SIGNING_CERT_PASSWORD}}
-          SIGNING_CERT_FILE_PATH: signing-cert.cer
-          SIGNING_KEY_FILE_PATH: signing-key.p12
+          SIGNING_CERT_PASSWORD: ${{ secrets.SIGNING_CERT_PASSWORD }}
+          SIGNING_CERT_FILE_PATH: ./cert/signing-cert.cer
+          SIGNING_KEY_FILE_PATH: ./cert/signing-key.p12
  
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
           name: output
           path: ./OSX/release/
-        
-      - name: update
+      
+      - name: "Show changes"
         run: |
-          git add .
-          git commit -m "bump version [skip ci]"
-          git push origin HEAD
+          git status
+
+      # Commit all changed files back to the repository
+      - name: Commit changes
+        uses: stefanzweifel/git-auto-commit-action@v5
 
 
       

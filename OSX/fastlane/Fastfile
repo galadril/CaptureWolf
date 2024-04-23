@@ -24,7 +24,6 @@ platform :mac do
       )
     end
 
-
     desc "Installs signing certificate in the keychain"
     lane :prepare_signing do |options|
 
@@ -45,19 +44,16 @@ platform :mac do
 
       import_certificate(
         certificate_path: ENV["SIGNING_CERT_FILE_PATH"],
-        certificate_password: ENV["SIGNING_CERT_PASSWORD"],
+        #certificate_password: ENV["SIGNING_CERT_PASSWORD"],
         keychain_name: keychain_name,
         keychain_password: keychain_password
       )
 
       import_certificate(
         certificate_path: ENV["SIGNING_KEY_FILE_PATH"],
+        certificate_password: ENV["SIGNING_CERT_PASSWORD"],
         keychain_name: keychain_name,
         keychain_password: keychain_password
-      )
-      
-      delete_keychain(
-        name: keychain_name
       )
     end
 end
