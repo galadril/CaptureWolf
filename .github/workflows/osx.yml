@@ -9,7 +9,6 @@ on:
 jobs:
   build:
     runs-on: macos-14-large
-    environment: prod
 
     steps:
       - name: Checkout files
