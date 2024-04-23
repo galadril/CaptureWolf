@@ -24,7 +24,6 @@ platform :mac do
       )
     end
 
-
     desc "Installs signing certificate in the keychain"
     lane :prepare_signing do |options|
 
@@ -55,10 +54,6 @@ platform :mac do
         certificate_password: ENV["SIGNING_CERT_PASSWORD"],
         keychain_name: keychain_name,
         keychain_password: keychain_password
-      )
-      
-      delete_keychain(
-        name: keychain_name
       )
     end
 end
