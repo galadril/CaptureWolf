@@ -56,7 +56,7 @@ jobs:
         uses: yanamura/ios-bump-version@v1
         with:
           version: 1.0.5
-          project-path: OSX/capture-wolf
+          project-path: OSX
 
       - name: Deploy app
         run: bundle exec fastlane release
