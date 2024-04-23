@@ -5,6 +5,7 @@ on:
     branches: [ main ]
   pull_request:
     branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -39,6 +40,9 @@ jobs:
         with:
           xcode-version: '15.2.0'
       
+      - name: Create Cert folder
+        run: mkdir -p cert
+        
       - name: Decode signing certificate into a file
         env:
           CERTIFICATE_BASE64: ${{ secrets.SIGNING_CERT }}
