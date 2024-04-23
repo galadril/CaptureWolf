@@ -10,6 +10,10 @@ jobs:
   build:
     runs-on: macos-14
 
+    defaults:
+      run:
+        working-directory: ${{ github.workspace }}/OSX
+        
     steps:
       - name: Checkout files
         uses: actions/checkout@v4
