@@ -7,10 +7,31 @@ on:
 
 env:
   VERSION: 1.0.7
-
+  
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Setup Git user
+      run: |
+        git config --local user.name "GitHub Actions"
+        git config --local user.email "<>"
+
+    - name: Cancel Previous Runs
+      uses: styfle/cancel-workflow-action@0.9.1
+      with:
+        access_token: ${{ github.token }}
+
   build-windows:
+    needs: setup
     runs-on: windows-latest
+
+    permissions:
+      contents: write
 
     steps:
     - uses: actions/checkout@v2
@@ -60,6 +81,7 @@ jobs:
       shell: bash
 
   build-osx:
+    needs: setup
     runs-on: macos-14
 
     defaults:
@@ -76,16 +98,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 21
-      
-      - name: "Setup git user"
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "<>"
-        
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          access_token: ${{ github.token }}
       
       - name: List Xcode installations
         run: sudo ls -1 /Applications | grep "Xcode"
@@ -129,10 +141,6 @@ jobs:
         with:
           name: osx-installer
           path: ./OSX/release/
-      
-      - name: "Show changes"
-        run: |
-          git status
 
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
