@@ -145,30 +145,7 @@ jobs:
 
     - name: Download all workflow run artifacts
       uses: actions/download-artifact@v2
-
-    - name: Generate release notes
-      id: release_notes
-      run: |
-        PREV_VERSION=$(awk -F. -v version="${{ env.VERSION }}" 'BEGIN { OFS = "."; } { $NF--; print $0; }' <<< version)
-        echo "::set-output name=body::**Full Changelog**: https://github.com/galadril/CaptureWolf/compare/v${PREV_VERSION}...v${{ env.VERSION }}\n\n### ⬇️ Downloads:\n**Windows**\n* [🖥️ Standalone](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/windows-standalone.zip)\n* [💾 Installer](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/windows-installer.zip)\n\n**macOS**\n* [🍎 Installer](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/osx-installer.zip)"
-      shell: bash
-
-    # - name: Generate release notes
-    #   id: release_notes
-    #   run: |
-    #     PREV_VERSION=$(awk -F. -v version="${{ env.VERSION }}" 'BEGIN { OFS = "."; } { $NF--; print $0; }' <<< version)
-    #     echo "::set-output name=body:: |
-    #       **Full Changelog**: https://github.com/galadril/CaptureWolf/compare/v${PREV_VERSION}...v${{ env.VERSION }}
-      
-    #       ### ⬇️ Downloads:
-    #       **Windows**
-    #       * [🖥️ Standalone](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/windows-standalone.zip)
-    #       * [💾 Installer](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/windows-installer.zip)
-      
-    #       **macOS**
-    #       * [🍎 Installer](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/osx-installer.zip)"
-    #   shell: bash
-
+    
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -178,8 +155,16 @@ jobs:
         tag_name: ${{ env.VERSION }}
         release_name: Release ${{ env.VERSION }}
         draft: false
-        prerelease: false
-        body: ${{ steps.release_notes.outputs.body }}
+        body: |
+          **Full Changelog**: https://github.com/galadril/CaptureWolf/compare/v${PREV_VERSION}...v${{ env.VERSION }}
+      
+          ### ⬇️ Downloads:
+          **Windows**
+          * [🖥️ Standalone](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/windows-standalone.zip)
+          * [💾 Installer](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/windows-installer.zip)
+      
+          **macOS**
+          * [🍎 Installer](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/osx-installer.zip)"
 
     # - name: Upload Release Asset (Windows Standalone)
     #   id: upload-release-asset-windows-standalone
@@ -203,7 +188,7 @@ jobs:
     #     asset_name: windows-installer.zip
     #     asset_content_type: application/zip
 
-    - name: Upload Release Asset
+    - name: Upload Release Asset (OSX Installer)
       id: upload-release-asset-osx
       uses: actions/upload-release-asset@v1
       env:
