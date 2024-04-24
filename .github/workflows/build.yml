@@ -13,58 +13,58 @@ concurrency:
   cancel-in-progress: true
   
 jobs:
-  build-windows:
-    runs-on: windows-latest
+  # build-windows:
+  #   runs-on: windows-latest
 
-    permissions:
-      contents: write
+  #   permissions:
+  #     contents: write
 
-    steps:
-    - uses: actions/checkout@v4
+  #   steps:
+  #   - uses: actions/checkout@v4
 
-    - name: Setup Git user
-      run: |
-        git config --local user.name "GitHub Actions"
-        git config --local user.email "<>"
+  #   - name: Setup Git user
+  #     run: |
+  #       git config --local user.name "GitHub Actions"
+  #       git config --local user.email "<>"
 
-    - name: Setup .NET
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 8.0.x
+  #   - name: Setup .NET
+  #     uses: actions/setup-dotnet@v1
+  #     with:
+  #       dotnet-version: 8.0.x
 
-    - name: Restore dependencies
-      run: dotnet restore ./Windows/CaptureWolf.sln
+  #   - name: Restore dependencies
+  #     run: dotnet restore ./Windows/CaptureWolf.sln
 
-    - name: Setup VS Dev Environment
-      uses: seanmiddleditch/gha-setup-vsdevenv@v4
+  #   - name: Setup VS Dev Environment
+  #     uses: seanmiddleditch/gha-setup-vsdevenv@v4
 
-    - name: Update version in .vdproj file
-      run: |
-        $content = Get-Content -Path ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj -Raw
-        $content = $content -replace '(?<=ProductVersion" = "8:)\d+\.\d+\.\d+', '${{ env.VERSION }}'
-        Set-Content -Path ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj -Value $content
-      shell: pwsh
+  #   - name: Update version in .vdproj file
+  #     run: |
+  #       $content = Get-Content -Path ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj -Raw
+  #       $content = $content -replace '(?<=ProductVersion" = "8:)\d+\.\d+\.\d+', '${{ env.VERSION }}'
+  #       Set-Content -Path ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj -Value $content
+  #     shell: pwsh
 
-    - name: Build
-      run: dotnet build --configuration Release --no-restore ./Windows/CaptureWolf.Form/CaptureWolf.UI.csproj
+  #   - name: Build
+  #     run: dotnet build --configuration Release --no-restore ./Windows/CaptureWolf.Form/CaptureWolf.UI.csproj
 
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v4
-      with:
-        name: windows-standalone
-        path: ./Windows/CaptureWolf.Form/bin/Release/
+  #   - name: Upload Artifacts
+  #     uses: actions/upload-artifact@v4
+  #     with:
+  #       name: windows-standalone
+  #       path: ./Windows/CaptureWolf.Form/bin/Release/
 
-    - name: Build Installer
-      run: devenv.com ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj /build "Release|Any CPU"
+  #   - name: Build Installer
+  #     run: devenv.com ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj /build "Release|Any CPU"
 
-    - name: Upload Installer
-      uses: actions/upload-artifact@v4
-      with:
-        name: windows-installer
-        path: ./Windows/CaptureWolf.Installer/Release/
+  #   - name: Upload Installer
+  #     uses: actions/upload-artifact@v4
+  #     with:
+  #       name: windows-installer
+  #       path: ./Windows/CaptureWolf.Installer/Release/
 
-    - name: Commit changes
-      uses: stefanzweifel/git-auto-commit-action@v5
+  #   - name: Commit changes
+  #     uses: stefanzweifel/git-auto-commit-action@v5
 
   build-osx:
     runs-on: macos-14
@@ -136,7 +136,8 @@ jobs:
         uses: stefanzweifel/git-auto-commit-action@v5
 
   create-release:
-    needs: [build-windows, build-osx]
+    needs: [build-osx]
+    #needs: [build-windows, build-osx]
     runs-on: ubuntu-latest
     steps:
     - name: Checkout code
