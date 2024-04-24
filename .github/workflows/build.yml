@@ -63,8 +63,8 @@ jobs:
         name: windows-installer
         path: ./Windows/CaptureWolf.Installer/Release/
 
-    - name: Commit changes
-      uses: stefanzweifel/git-auto-commit-action@v5
+    # - name: Commit changes
+    #   uses: stefanzweifel/git-auto-commit-action@v5
 
   build-osx:
     runs-on: macos-14
@@ -132,8 +132,8 @@ jobs:
           name: osx-installer
           path: ./OSX/release/
 
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
+      # - name: Commit changes
+      #   uses: stefanzweifel/git-auto-commit-action@v5
 
   create-release:
     needs: [build-windows, build-osx]
