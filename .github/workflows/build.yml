@@ -1,12 +1,65 @@
-name: OSX
+name: Build
 
 on:
   push:
     branches: [ main ]
   workflow_dispatch:
 
+env:
+  VERSION: 1.0.6
+
 jobs:
-  build:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Restore dependencies
+      run: dotnet restore ./Windows/CaptureWolf.sln
+
+    - name: Setup VS Dev Environment
+      uses: seanmiddleditch/gha-setup-vsdevenv@v4
+
+    - name: Update version in .vdproj file
+      run: |
+        $content = Get-Content -Path ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj -Raw
+        $content = $content -replace '(?<=ProductVersion" = "8:)\d+\.\d+\.\d+', '${{ env.VERSION }}'
+        Set-Content -Path ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj -Value $content
+      shell: pwsh
+
+    - name: Build
+      run: dotnet build --configuration Release --no-restore ./Windows/CaptureWolf.Form/CaptureWolf.UI.csproj
+
+    - name: Build Installer
+      run: devenv.com ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj /build "Release|Any CPU"
+
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: output
+        path: ./Windows/CaptureWolf.Form/bin/Release/
+
+    - name: Upload Installer
+      uses: actions/upload-artifact@v2
+      with:
+        name: installer
+        path: ./Windows/CaptureWolf.Installer/Release/
+
+    - name: Commit version bump
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj
+        git commit -m "Bump version to ${{ env.VERSION }}"
+      shell: bash
+
+  build-osx:
     runs-on: macos-14
 
     defaults:
@@ -21,6 +74,7 @@ jobs:
     steps:
       - name: Checkout files
         uses: actions/checkout@v4
+
       - uses: actions/setup-node@v4
         with:
           node-version: 21
@@ -62,7 +116,7 @@ jobs:
       - name: Bump ios version
         uses: yanamura/ios-bump-version@v1
         with:
-          version: 1.0.5
+          version: ${{ env.VERSION }}
           project-path: OSX
 
       - name: Deploy app
@@ -85,7 +139,3 @@ jobs:
       # Commit all changed files back to the repository
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
-
-
-      
-      
