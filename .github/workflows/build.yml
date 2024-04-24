@@ -7,27 +7,13 @@ on:
 
 env:
   VERSION: 1.0.7
+
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
   
 jobs:
-  setup:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v4
-
-    - name: Setup Git user
-      run: |
-        git config --local user.name "GitHub Actions"
-        git config --local user.email "<>"
-
-    - name: Cancel Previous Runs
-      uses: styfle/cancel-workflow-action@0.9.1
-      with:
-        access_token: ${{ github.token }}
-
   build-windows:
-    needs: setup
     runs-on: windows-latest
 
     permissions:
@@ -35,6 +21,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+
+    - name: Setup Git user
+      run: |
+        git config --local user.name "GitHub Actions"
+        git config --local user.email "<>"
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
@@ -76,7 +67,6 @@ jobs:
       uses: stefanzweifel/git-auto-commit-action@v5
 
   build-osx:
-    needs: setup
     runs-on: macos-14
 
     defaults:
@@ -89,6 +79,11 @@ jobs:
     steps:
       - name: Checkout files
         uses: actions/checkout@v4
+
+      - name: Setup Git user
+        run: |
+          git config --local user.name "GitHub Actions"
+          git config --local user.email "<>"
 
       - uses: actions/setup-node@v4
         with:
