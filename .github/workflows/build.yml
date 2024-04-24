@@ -63,9 +63,6 @@ jobs:
         name: windows-installer
         path: ./Windows/CaptureWolf.Installer/Release/
 
-    # - name: Commit changes
-    #   uses: stefanzweifel/git-auto-commit-action@v5
-
   build-osx:
     runs-on: macos-14
 
@@ -132,9 +129,6 @@ jobs:
           name: osx-installer
           path: ./OSX/release/
 
-      # - name: Commit changes
-      #   uses: stefanzweifel/git-auto-commit-action@v5
-
   create-release:
     needs: [build-windows, build-osx]
     runs-on: ubuntu-latest
@@ -165,7 +159,7 @@ jobs:
         release_name: Release ${{ env.VERSION }}
         draft: false
         body: |
-          **Full Changelog**: https://github.com/galadril/CaptureWolf/compare/v${{ env.PREV_VERSION }}...v${{ env.VERSION }}
+          **Full Changelog**: https://github.com/galadril/CaptureWolf/compare/${{ env.PREV_VERSION }}...${{ env.VERSION }}
       
           ### ⬇️ Downloads:
           **Windows**
@@ -182,7 +176,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: ${{ github.workspace }}/windows-standalone.zip
+        asset_path: ./windows-standalone/windows-standalone.zip
         asset_name: windows-standalone.zip
         asset_content_type: application/zip
 
@@ -193,18 +187,17 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: ${{ github.workspace }}/windows-installer.zip
+        asset_path: ./windows-installer/windows-installer.zip
         asset_name: windows-installer.zip
         asset_content_type: application/zip
 
-    - name: Upload Release Asset (Windows Installer)
+    - name: Upload Release Asset (OSX Installer)
       id: upload-release-asset-osx
       uses: actions/upload-release-asset@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: ${{ github.workspace }}/osx-installer.zip
+        asset_path: ./osx-installer/osx-installer.zip
         asset_name: osx-installer.zip
         asset_content_type: application/zip
-    
