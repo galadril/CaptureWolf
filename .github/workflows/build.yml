@@ -42,13 +42,13 @@ jobs:
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: output
+        name: windows-standalone
         path: ./Windows/CaptureWolf.Form/bin/Release/
 
     - name: Upload Installer
       uses: actions/upload-artifact@v2
       with:
-        name: installer
+        name: windows-installer
         path: ./Windows/CaptureWolf.Installer/Release/
 
     - name: Commit version bump
@@ -129,7 +129,7 @@ jobs:
       - name: Upload Artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: output
+          name: osx-installer
           path: ./OSX/release/
       
       - name: "Show changes"
@@ -176,7 +176,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: ./output.zip
+        asset_path: ./windows-standalone.zip
         asset_name: windows-standalone.zip
         asset_content_type: application/zip
 
@@ -187,7 +187,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: ./installer.zip
+        asset_path: ./windows-installer.zip
         asset_name: windows-installer.zip
         asset_content_type: application/zip
 
@@ -198,6 +198,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: ./OSX/release.zip
+        asset_path: ./osx-installer.zip
         asset_name: osx-installer.zip
         asset_content_type: application/zip
+    
