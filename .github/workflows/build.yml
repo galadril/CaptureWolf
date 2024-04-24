@@ -181,27 +181,27 @@ jobs:
         prerelease: false
         body: ${{ steps.release_notes.outputs.body }}
 
-    - name: Upload Release Asset (Windows Standalone)
-      id: upload-release-asset-windows-standalone
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: ${{ github.workspace }}/windows-standalone.zip
-        asset_name: windows-standalone.zip
-        asset_content_type: application/zip
+    # - name: Upload Release Asset (Windows Standalone)
+    #   id: upload-release-asset-windows-standalone
+    #   uses: actions/upload-release-asset@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     upload_url: ${{ steps.create_release.outputs.upload_url }} 
+    #     asset_path: ${{ github.workspace }}/windows-standalone.zip
+    #     asset_name: windows-standalone.zip
+    #     asset_content_type: application/zip
 
-    - name: Upload Release Asset (Windows Installer)
-      id: upload-release-asset-windows-installer
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: ${{ github.workspace }}/windows-installer.zip
-        asset_name: windows-installer.zip
-        asset_content_type: application/zip
+    # - name: Upload Release Asset (Windows Installer)
+    #   id: upload-release-asset-windows-installer
+    #   uses: actions/upload-release-asset@v1
+    #   env:
+    #     GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #   with:
+    #     upload_url: ${{ steps.create_release.outputs.upload_url }} 
+    #     asset_path: ${{ github.workspace }}/windows-installer.zip
+    #     asset_name: windows-installer.zip
+    #     asset_content_type: application/zip
 
     - name: Upload Release Asset
       id: upload-release-asset-osx
