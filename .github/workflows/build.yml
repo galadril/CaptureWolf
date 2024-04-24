@@ -145,6 +145,16 @@ jobs:
     - name: Download all workflow run artifacts
       uses: actions/download-artifact@v4
     
+    - name: Calculate previous version
+      id: prev_version
+      run: |
+        VERSION=${{ env.VERSION }}
+        MAJOR=$(echo $VERSION | cut -d. -f1)
+        MINOR=$(echo $VERSION | cut -d. -f2)
+        PATCH=$(echo $VERSION | cut -d. -f3)
+        PREV_VERSION="$MAJOR.$MINOR.$((PATCH - 1))"
+        echo "PREV_VERSION=$PREV_VERSION" >> $GITHUB_ENV
+
     - name: Create Release
       id: create_release
       uses: actions/create-release@v1
@@ -155,7 +165,7 @@ jobs:
         release_name: Release ${{ env.VERSION }}
         draft: false
         body: |
-          **Full Changelog**: https://github.com/galadril/CaptureWolf/compare/v${PREV_VERSION}...v${{ env.VERSION }}
+          **Full Changelog**: https://github.com/galadril/CaptureWolf/compare/v${{ env.PREV_VERSION }}...v${{ env.VERSION }}
       
           ### ⬇️ Downloads:
           **Windows**
