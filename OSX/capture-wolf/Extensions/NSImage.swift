@@ -13,8 +13,6 @@ extension NSImage {
         
         let imageWidth = CGFloat( self.size.width)
         let imageHeight = CGFloat( self.size.height)
-
-        print("start - \(imageWidth) - \(imageHeight)")
    
         let imageSize = CGSize(width: imageWidth, height: imageHeight)
         let imageRect = CGRect(origin: .zero, size: imageSize)
@@ -54,7 +52,6 @@ extension NSImage {
                
         outputImage.unlockFocus()
         
-        print("end - \(outputImage.size.width) - \(outputImage.size.width)")
         return outputImage
     }
     
@@ -62,8 +59,6 @@ extension NSImage {
   
         let imageWidth = CGFloat( self.size.width)
         let imageHeight = CGFloat( self.size.height)
-        
-        print("xstart - \(imageWidth) - \(imageHeight)")
         
         let imageSize = CGSize(width: imageWidth, height: imageHeight)
         let imageRect = CGRect(origin: .zero, size: imageSize)
@@ -90,7 +85,6 @@ extension NSImage {
         
         outputImage.unlockFocus()
         
-        print("xend - \(outputImage.size.width) - \(outputImage.size.width)")
         return outputImage
     }
 }
