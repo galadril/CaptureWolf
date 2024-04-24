@@ -72,13 +72,8 @@ jobs:
         name: windows-installer
         path: ./Windows/CaptureWolf.Installer/Release/
 
-    - name: Commit version bump
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj
-        git commit -m "Bump version to ${{ env.VERSION }}"
-      shell: bash
+    - name: Commit changes
+      uses: stefanzweifel/git-auto-commit-action@v5
 
   build-osx:
     needs: setup
