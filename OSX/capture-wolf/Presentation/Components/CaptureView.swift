@@ -49,8 +49,11 @@ struct CaptureView: View {
             
             Button(action: {
                 if(self.hideWindows) {
+                    minimizeAll()
+                }else {
                     minimize()
                 }
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 2
                 ) {
                     self.isActivity = false
@@ -107,12 +110,29 @@ struct CaptureView: View {
                 guard self.isActive else {return}
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-                    NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .flagsChanged]) { event  in
-                        guard  event.keyCode != 0x38 else {
-                            return event
+                    NSEvent.addGlobalMonitorForEvents(matching: [.keyDown, .flagsChanged]) { event  in
+                        if event.keyCode == 0x38 {
+                            // triggerd for keeping mac alive!!!
+                        }else {
+                            self.isActivity = true
                         }
-                        
+                        if event.type != .keyDown {
+                            self.isActivity = true
+                        }
+                    }
+                    NSEvent.addGlobalMonitorForEvents(matching: [.mouseMoved]) {event in
                         self.isActivity = true
+                    }
+                    
+                    NSEvent.addLocalMonitorForEvents(matching: [.keyDown, .flagsChanged]) { event  in
+                        if event.keyCode == 0x38 {
+                            // triggerd for keeping mac alive!!!
+                        }else {
+                            self.isActivity = true
+                        }
+                        if event.type != .keyDown {
+                            self.isActivity = true
+                        }
                         return event
                     }
                     NSEvent.addLocalMonitorForEvents(matching: [.mouseMoved]) {event in
@@ -126,6 +146,11 @@ struct CaptureView: View {
                 guard self.isActivity else {return}
                 
                 model.startRunningCaptureSession()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    minimize(value: false)
+                }
+                
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                     model.stopRunningCaptureSession()
                     lockScreen()

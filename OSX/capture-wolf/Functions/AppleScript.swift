@@ -8,7 +8,31 @@
 import Foundation
 import AppKit
 
-func minimize() {
+func minimize(value: Bool = true) {
+    DispatchQueue.global(qos: .background).async {
+        let lockScript = """
+            tell application "System Events"
+                tell process "capture-wolf"
+                        set frontWindow to the first window
+                        tell frontWindow
+                            set value of attribute "AXMinimized" to \(value)
+                        end tell
+                    end tell
+            end tell
+        """
+
+        if let scriptObject = NSAppleScript(source: lockScript) {
+            var error: NSDictionary?
+            scriptObject.executeAndReturnError(&error)
+            if let error = error {
+                print("Error locking screen: \(error)")
+            }
+        }
+    }
+}
+
+
+func minimizeAll() {
     DispatchQueue.global(qos: .background).async {
         let lockScript = """
             tell application "System Events"
@@ -52,7 +76,7 @@ func openFolder() {
    let workspace = NSWorkspace.shared
    let downloadsURL = FileManager.default.urls(for: .downloadsDirectory, in: .userDomainMask).first!
       
-    let fileURL = downloadsURL.appendingPathComponent("captured_image.jpg") // Replace "example.txt" with the name of your file
+    let fileURL = downloadsURL.appendingPathComponent("captured_image.jpg")
     
     workspace.activateFileViewerSelecting([fileURL])
    }
