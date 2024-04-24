@@ -153,7 +153,8 @@ jobs:
     - name: Generate release notes
       id: release_notes
       run: |
-        echo "::set-output name=body::**Full Changelog**: https://github.com/galadril/CaptureWolf/compare/v$((${{ env.VERSION }}-1))...v${{ env.VERSION }}\n\n### ⬇️ Downloads:\n**Windows**\n* [🖥️ Standalone](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/windows-standalone.zip)\n* [💾 Installer](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/windows-installer.zip)\n\n**macOS**\n* [🍎 Installer](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/osx-installer.zip)"
+        PREV_VERSION=$(awk -F. -v version="${{ env.VERSION }}" 'BEGIN { OFS = "."; } { $NF--; print $0; }' <<< version)
+        echo "::set-output name=body::**Full Changelog**: https://github.com/galadril/CaptureWolf/compare/v${PREV_VERSION}...v${{ env.VERSION }}\n\n### ⬇️ Downloads:\n**Windows**\n* [🖥️ Standalone](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/windows-standalone.zip)\n* [💾 Installer](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/windows-installer.zip)\n\n**macOS**\n* [🍎 Installer](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/osx-installer.zip)"
       shell: bash
 
     - name: Create Release
