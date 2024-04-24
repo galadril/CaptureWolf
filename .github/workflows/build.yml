@@ -1,4 +1,4 @@
-name: Build
+﻿name: Build
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  VERSION: 1.0.6
+  VERSION: 1.0.7
 
 jobs:
   build-windows:
@@ -37,7 +37,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore ./Windows/CaptureWolf.Form/CaptureWolf.UI.csproj
 
     - name: Build Installer
-      run: devenv.com ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj /build "Release|Any CPU"
+      run: devenv.com ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj /build "Release|Any CPU" /m
 
     - name: Upload Artifacts
       uses: actions/upload-artifact@v2
@@ -150,10 +150,11 @@ jobs:
     - name: Download all workflow run artifacts
       uses: actions/download-artifact@v2
 
-    - name: Zip artifacts
+    - name: Generate release notes
+      id: release_notes
       run: |
-        zip -r output.zip output
-        zip -r installer.zip installer
+        echo "::set-output name=body::**Full Changelog**: https://github.com/galadril/CaptureWolf/compare/v$((${{ env.VERSION }}-1))...v${{ env.VERSION }}\n\n### ⬇️ Downloads:\n**Windows**\n* [🖥️ Standalone](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/windows-standalone.zip)\n* [💾 Installer](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/windows-installer.zip)\n\n**macOS**\n* [🍎 Installer](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/osx-installer.zip)"
+      shell: bash
 
     - name: Create Release
       id: create_release
@@ -165,6 +166,7 @@ jobs:
         release_name: Release ${{ env.VERSION }}
         draft: false
         prerelease: false
+        body: ${{ steps.release_notes.outputs.body }}
 
     - name: Upload Release Asset
       id: upload-release-asset 
@@ -174,7 +176,7 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
         asset_path: ./output.zip
-        asset_name: output.zip
+        asset_name: windows-standalone.zip
         asset_content_type: application/zip
 
     - name: Upload Release Asset
@@ -185,5 +187,16 @@ jobs:
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
         asset_path: ./installer.zip
-        asset_name: installer.zip
+        asset_name: windows-installer.zip
+        asset_content_type: application/zip
+
+    - name: Upload Release Asset
+      id: upload-release-asset-osx
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: ./OSX/release.zip
+        asset_name: osx-installer.zip
         asset_content_type: application/zip
