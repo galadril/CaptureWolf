@@ -29,6 +29,10 @@ Installing CaptureWolf is straightforward:
 
 We believe in the strength of community. While CaptureWolf currently supports Windows and MacOS, we encourage contributions to further enhance its capabilities.
 
+## !!! Extra MAC userguide !!!
+
+When using the program it first needs to **run once** to set all the necessary permissions before actually using it.
+
 ## 🤝 Contributing
 
 We welcome contributions, bug reports, and feature requests! Don't hesitate to visit the [issues page](../../issues).

@@ -47,6 +47,14 @@ Build the IOS Application
 
 Installs signing certificate in the keychain
 
+### mac remove_keychain
+
+```sh
+[bundle exec] fastlane mac remove_keychain
+```
+
+Delete keychain
+
 ----
 
 This README.md is auto-generated and will be re-generated every time [_fastlane_](https://fastlane.tools) is run.
