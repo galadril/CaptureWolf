@@ -1,4 +1,4 @@
-name: Build
+﻿name: Build
 
 on:
   push:
@@ -6,14 +6,26 @@ on:
   workflow_dispatch:
 
 env:
-  VERSION: 1.0.6
+  VERSION: 1.0.7
 
+concurrency:
+  group: ${{ github.ref }}
+  cancel-in-progress: true
+  
 jobs:
   build-windows:
     runs-on: windows-latest
 
+    permissions:
+      contents: write
+
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v4
+
+    - name: Setup Git user
+      run: |
+        git config --local user.name "GitHub Actions"
+        git config --local user.email "<>"
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
@@ -36,28 +48,20 @@ jobs:
     - name: Build
       run: dotnet build --configuration Release --no-restore ./Windows/CaptureWolf.Form/CaptureWolf.UI.csproj
 
+    - name: Upload Artifacts
+      uses: actions/upload-artifact@v4
+      with:
+        name: windows-standalone
+        path: ./Windows/CaptureWolf.Form/bin/Release/
+
     - name: Build Installer
       run: devenv.com ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj /build "Release|Any CPU"
 
-    - name: Upload Artifacts
-      uses: actions/upload-artifact@v2
-      with:
-        name: output
-        path: ./Windows/CaptureWolf.Form/bin/Release/
-
     - name: Upload Installer
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
-        name: installer
+        name: windows-installer
         path: ./Windows/CaptureWolf.Installer/Release/
-
-    - name: Commit version bump
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj
-        git commit -m "Bump version to ${{ env.VERSION }}"
-      shell: bash
 
   build-osx:
     runs-on: macos-14
@@ -67,27 +71,20 @@ jobs:
         working-directory: ${{ github.workspace }}/OSX
 
     permissions:
-      # Give the default GITHUB_TOKEN write permission to commit and push the
-      # added or changed files to the repository.
       contents: write
       
     steps:
       - name: Checkout files
         uses: actions/checkout@v4
 
+      - name: Setup Git user
+        run: |
+          git config --local user.name "GitHub Actions"
+          git config --local user.email "<>"
+
       - uses: actions/setup-node@v4
         with:
           node-version: 21
-      
-      - name: "Setup git user"
-        run: |
-          git config user.name "GitHub Actions"
-          git config user.email "<>"
-        
-      - name: Cancel Previous Runs
-        uses: styfle/cancel-workflow-action@0.9.1
-        with:
-          access_token: ${{ github.token }}
       
       - name: List Xcode installations
         run: sudo ls -1 /Applications | grep "Xcode"
@@ -127,15 +124,111 @@ jobs:
           SIGNING_KEY_FILE_PATH: ./cert/signing-key.p12
  
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
-          name: output
+          name: osx-installer
           path: ./OSX/release/
       
       - name: "Show changes"
         run: |
           git status
 
-      # Commit all changed files back to the repository
       - name: Commit changes
         uses: stefanzweifel/git-auto-commit-action@v5
+
+  create-release:
+    needs: [build-windows, build-osx]
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Download all workflow run artifacts
+      uses: actions/download-artifact@v4
+
+    - name: List directory contents
+      run: |
+        echo "Listing contents of /home/runner/work/CaptureWolf/CaptureWolf/windows-standalone:"
+        ls -al /home/runner/work/CaptureWolf/CaptureWolf/windows-standalone
+        echo "Listing contents of /home/runner/work/CaptureWolf/CaptureWolf/windows-installer:"
+        ls -al /home/runner/work/CaptureWolf/CaptureWolf/windows-installer
+        echo "Listing contents of /home/runner/work/CaptureWolf/CaptureWolf/osx-installer:"
+        ls -al /home/runner/work/CaptureWolf/CaptureWolf/osx-installer
+    
+    - name: Calculate previous version
+      id: prev_version
+      run: |
+        VERSION=${{ env.VERSION }}
+        MAJOR=$(echo $VERSION | cut -d. -f1)
+        MINOR=$(echo $VERSION | cut -d. -f2)
+        PATCH=$(echo $VERSION | cut -d. -f3)
+        PREV_VERSION="$MAJOR.$MINOR.$((PATCH - 1))"
+        echo "PREV_VERSION=$PREV_VERSION" >> $GITHUB_ENV
+
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ env.VERSION }}
+        release_name: Release ${{ env.VERSION }}
+        draft: false
+        body: |
+          **Full Changelog**: https://github.com/galadril/CaptureWolf/compare/${{ env.PREV_VERSION }}...${{ env.VERSION }}
+
+          ### ⬇️ Downloads:
+          **Windows**
+          * [🖥️ Standalone](https://github.com/galadril/CaptureWolf/releases/download/${{ env.VERSION }}/windows-standalone.zip)
+          * [💾 Installer](https://github.com/galadril/CaptureWolf/releases/download/${{ env.VERSION }}/windows-installer.zip)
+  
+          **macOS**
+          * [🍎 Installer](https://github.com/galadril/CaptureWolf/releases/download/${{ env.VERSION }}/osx-installer.zip)
+
+    - name: Zip Windows Standalone
+      run: |
+        cd windows-standalone
+        zip -r ../windows-standalone.zip .
+
+    - name: Upload Release Asset (Windows Standalone)
+      id: upload-release-asset-windows-standalone
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: ./windows-standalone.zip
+        asset_name: windows-standalone.zip
+        asset_content_type: application/zip
+
+    - name: Zip Windows Installer
+      run: |
+        cd windows-installer
+        zip -r ../windows-installer.zip .
+
+    - name: Upload Release Asset (Windows Installer)
+      id: upload-release-asset-windows-installer
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: ./windows-installer.zip
+        asset_name: windows-installer.zip
+        asset_content_type: application/zip
+
+    - name: Zip OSX Installer
+      run: |
+        cd osx-installer
+        zip -r ../osx-installer.zip .
+
+    - name: Upload Release Asset (OSX Installer)
+      id: upload-release-asset-osx
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }} 
+        asset_path: ./osx-installer.zip
+        asset_name: osx-installer.zip
+        asset_content_type: application/zip
