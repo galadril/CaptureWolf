@@ -160,7 +160,7 @@ jobs:
         draft: false
         body: |
           **Full Changelog**: https://github.com/galadril/CaptureWolf/compare/${{ env.PREV_VERSION }}...${{ env.VERSION }}
-      
+
           ### ⬇️ Downloads:
           **Windows**
           * [🖥️ Standalone](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/windows-standalone.zip)
