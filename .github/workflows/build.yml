@@ -138,6 +138,15 @@ jobs:
 
     - name: Download all workflow run artifacts
       uses: actions/download-artifact@v4
+
+    - name: List directory contents
+      run: |
+        echo "Listing contents of /home/runner/work/CaptureWolf/CaptureWolf/windows-standalone:"
+        ls -al /home/runner/work/CaptureWolf/CaptureWolf/windows-standalone
+        echo "Listing contents of /home/runner/work/CaptureWolf/CaptureWolf/windows-installer:"
+        ls -al /home/runner/work/CaptureWolf/CaptureWolf/windows-installer
+        echo "Listing contents of /home/runner/work/CaptureWolf/CaptureWolf/osx-installer:"
+        ls -al /home/runner/work/CaptureWolf/CaptureWolf/osx-installer
     
     - name: Calculate previous version
       id: prev_version
@@ -176,7 +185,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: /home/runner/work/CaptureWolf/CaptureWolf/windows-standalone/windows-standalone.zip
+        asset_path: /home/runner/work/CaptureWolf/CaptureWolf/windows-standalone
         asset_name: windows-standalone.zip
         asset_content_type: application/zip
 
@@ -187,7 +196,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: /home/runner/work/CaptureWolf/CaptureWolf/windows-installer/windows-installer.zip
+        asset_path: /home/runner/work/CaptureWolf/CaptureWolf/windows-installer
         asset_name: windows-installer.zip
         asset_content_type: application/zip
 
@@ -198,6 +207,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: /home/runner/work/CaptureWolf/CaptureWolf/osx-installer/osx-installer.zip
+        asset_path: /home/runner/work/CaptureWolf/CaptureWolf/osx-installer
         asset_name: osx-installer.zip
         asset_content_type: application/zip
