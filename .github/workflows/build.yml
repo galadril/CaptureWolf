@@ -178,6 +178,11 @@ jobs:
           **macOS**
           * [🍎 Installer](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/osx-installer.zip)
 
+    - name: Zip Windows Standalone
+      run: |
+        cd windows-standalone
+        zip -r ../windows-standalone.zip .
+
     - name: Upload Release Asset (Windows Standalone)
       id: upload-release-asset-windows-standalone
       uses: actions/upload-release-asset@v1
@@ -185,9 +190,14 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: /home/runner/work/CaptureWolf/CaptureWolf/windows-standalone
+        asset_path: ./windows-standalone.zip
         asset_name: windows-standalone.zip
         asset_content_type: application/zip
+
+    - name: Zip Windows Installer
+      run: |
+        cd windows-installer
+        zip -r ../windows-installer.zip .
 
     - name: Upload Release Asset (Windows Installer)
       id: upload-release-asset-windows-installer
@@ -196,9 +206,14 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: /home/runner/work/CaptureWolf/CaptureWolf/windows-installer
+        asset_path: ./windows-installer.zip
         asset_name: windows-installer.zip
         asset_content_type: application/zip
+
+    - name: Zip OSX Installer
+      run: |
+        cd osx-installer
+        zip -r ../osx-installer.zip .
 
     - name: Upload Release Asset (OSX Installer)
       id: upload-release-asset-osx
@@ -207,6 +222,6 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }} 
-        asset_path: /home/runner/work/CaptureWolf/CaptureWolf/osx-installer
+        asset_path: ./osx-installer.zip
         asset_name: osx-installer.zip
         asset_content_type: application/zip
