@@ -37,6 +37,10 @@ CaptureWolf is easy to install. Just follow these steps:
 3. Run the corresponding .exe file, or use the installer for the UI version.
 4. Follow the on-screen instructions to complete the setup.
 
+## !!! Extra MAC userguide !!!
+
+When using the program it first needs to **run once** to set all the necessary permissions before actually using it.
+
 ## 🤝 Contributing
 
 Contributions, issues, and feature requests are welcome! Feel free to check the [issues page](../../issues).
