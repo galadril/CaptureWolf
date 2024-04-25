@@ -172,11 +172,11 @@ jobs:
 
           ### ⬇️ Downloads:
           **Windows**
-          * [🖥️ Standalone](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/windows-standalone.zip)
-          * [💾 Installer](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/windows-installer.zip)
-      
+          * [🖥️ Standalone](https://github.com/galadril/CaptureWolf/releases/download/${{ env.VERSION }}/windows-standalone.zip)
+          * [💾 Installer](https://github.com/galadril/CaptureWolf/releases/download/${{ env.VERSION }}/windows-installer.zip)
+  
           **macOS**
-          * [🍎 Installer](https://github.com/galadril/CaptureWolf/files/${{ steps.create_release.outputs.id }}/osx-installer.zip)
+          * [🍎 Installer](https://github.com/galadril/CaptureWolf/releases/download/${{ env.VERSION }}/osx-installer.zip)
 
     - name: Zip Windows Standalone
       run: |
