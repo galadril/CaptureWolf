@@ -8,6 +8,7 @@ platform :mac do
       prepare_signing
       build
       dmg(path: "builds", output_path: "./release/capture-wolf.dmg")
+      remove_keychain
     end
 
     lane :test do
@@ -27,7 +28,7 @@ platform :mac do
     desc "Installs signing certificate in the keychain"
     lane :prepare_signing do |options|
 
-      keychain_name = "signing"
+      keychain_name = ENV["KEY_CHAIN_NAME"]
       keychain_password = "temp"
 
       delete_keychain(
@@ -54,6 +55,13 @@ platform :mac do
         certificate_password: ENV["SIGNING_CERT_PASSWORD"],
         keychain_name: keychain_name,
         keychain_password: keychain_password
+      )
+    end
+
+    desc "Delete keychain"
+    lane :remove_keychain do
+      delete_keychain(
+        name: ENV["KEY_CHAIN_NAME"]
       )
     end
 end
