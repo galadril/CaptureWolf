@@ -122,6 +122,7 @@ jobs:
           SIGNING_CERT_PASSWORD: ${{ secrets.SIGNING_CERT_PASSWORD }}
           SIGNING_CERT_FILE_PATH: ./cert/signing-cert.cer
           SIGNING_KEY_FILE_PATH: ./cert/signing-key.p12
+          KEY_CHAIN_NAME: signing
  
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
