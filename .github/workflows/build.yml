@@ -38,10 +38,12 @@ jobs:
     - name: Setup VS Dev Environment
       uses: seanmiddleditch/gha-setup-vsdevenv@v4
 
-    - name: Update version in .vdproj file
+    - name: Update version and product code in .vdproj file
       run: |
         $content = Get-Content -Path ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj -Raw
         $content = $content -replace '(?<=ProductVersion" = "8:)\d+\.\d+\.\d+', '${{ env.VERSION }}'
+        $newGuid = [guid]::NewGuid().ToString().ToUpper()
+        $content = $content -replace '(?<=ProductCode" = "8:).+?(?=")', $newGuid
         Set-Content -Path ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj -Value $content
       shell: pwsh
 
