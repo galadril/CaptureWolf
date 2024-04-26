@@ -43,8 +43,10 @@ jobs:
         $content = Get-Content -Path ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj -Raw
         $content = $content -replace '(?<=ProductVersion" = "8:)\d+\.\d+\.\d+', '${{ env.VERSION }}'
         $newGuid = "{0}" -f ([guid]::NewGuid().ToString().ToUpper())
-        $content = $content -replace '(?<=ProductCode" = "8:).+?(?=")', $newGuid
+        $content = $content -replace '(?<=ProductCode" = "8:{).+?(?=}")', $newGuid
         Set-Content -Path ./Windows/CaptureWolf.Installer/CaptureWolf.Installer.vdproj -Value $content
+        Write-Host "Updated ProductVersion to ${{ env.VERSION }}"
+        Write-Host "Updated ProductCode to $newGuid"
       shell: pwsh
 
     - name: Build
