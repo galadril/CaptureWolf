@@ -61,7 +61,7 @@ namespace CaptureWolf.UI
             chkbMinimize.Checked = Properties.Settings.Default.Minimize;
             chkbWatermark.Checked = Properties.Settings.Default.Watermark;
 
-            SetPreviousConfig();
+            SetPreviewConfig();
             _isLoaded = true;
         }
 
@@ -71,7 +71,7 @@ namespace CaptureWolf.UI
                 return;
             Properties.Settings.Default.Resolution = cmbResolution.SelectedItem?.ToString();
             Properties.Settings.Default.Save();
-            SetPreviousConfig();
+            SetPreviewConfig();
         }
 
         private void CmbCamera_SelectedIndexChanged(object sender, EventArgs e)
@@ -108,7 +108,7 @@ namespace CaptureWolf.UI
             {
                 cmbResolution.SelectedItem = Properties.Settings.Default.Resolution;
             }
-            SetPreviousConfig();
+            SetPreviewConfig();
         }
 
         private void ChkbWatermark_CheckedChanged(object sender, EventArgs e)
@@ -153,7 +153,7 @@ namespace CaptureWolf.UI
             picPreview.Image = previewImage;
         }
 
-        private void SetPreviousConfig()
+        private void SetPreviewConfig()
         {
             var resolution = Properties.Settings.Default.Resolution;
             if (string.IsNullOrEmpty(resolution))
