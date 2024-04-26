@@ -67,8 +67,8 @@ public static class Handler
             if (_onlyOnce)
                 return;
             _onlyOnce = true;
-            Hook.GlobalEvents().MouseMove -= GlobalHook_MouseMove;
 
+            UnhookEvents();
             CatchWolf();
         }
         catch (Exception ex)
@@ -84,9 +84,22 @@ public static class Handler
             if (_onlyOnce)
                 return;
             _onlyOnce = true;
-            Hook.GlobalEvents().KeyUp -= GlobalHook_KeyUp;
 
+            UnhookEvents();
             CatchWolf();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+    }
+
+    private static void UnhookEvents()
+    {
+        try
+        {
+            Hook.GlobalEvents().MouseMove -= GlobalHook_MouseMove;
+            Hook.GlobalEvents().KeyUp -= GlobalHook_KeyUp;
         }
         catch (Exception ex)
         {

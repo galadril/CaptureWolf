@@ -1,4 +1,5 @@
-﻿using AForge.Video.DirectShow;
+﻿using AForge.Video;
+using AForge.Video.DirectShow;
 
 namespace CaptureWolf.UI
 {
@@ -60,6 +61,7 @@ namespace CaptureWolf.UI
             chkbMinimize.Checked = Properties.Settings.Default.Minimize;
             chkbWatermark.Checked = Properties.Settings.Default.Watermark;
 
+            SetPreviewConfig();
             _isLoaded = true;
         }
 
@@ -69,6 +71,7 @@ namespace CaptureWolf.UI
                 return;
             Properties.Settings.Default.Resolution = cmbResolution.SelectedItem?.ToString();
             Properties.Settings.Default.Save();
+            SetPreviewConfig();
         }
 
         private void CmbCamera_SelectedIndexChanged(object sender, EventArgs e)
@@ -105,6 +108,7 @@ namespace CaptureWolf.UI
             {
                 cmbResolution.SelectedItem = Properties.Settings.Default.Resolution;
             }
+            SetPreviewConfig();
         }
 
         private void ChkbWatermark_CheckedChanged(object sender, EventArgs e)
@@ -124,7 +128,7 @@ namespace CaptureWolf.UI
             Properties.Settings.Default.Minimize = chkbMinimize.Checked;
             Properties.Settings.Default.Save();
         }
-        
+
         private void btnReport_Click(object sender, EventArgs e)
         {
             const string url = "https://github.com/galadril/CaptureWolf/issues/new/choose";
@@ -133,14 +137,36 @@ namespace CaptureWolf.UI
 
         private void btnContribute_Click(object sender, EventArgs e)
         {
-            const string  url = "https://github.com/galadril/CaptureWolf";
+            const string url = "https://github.com/galadril/CaptureWolf";
             System.Diagnostics.Process.Start("explorer.exe", url);
         }
 
         private void btnLatestVersion_Click(object sender, EventArgs e)
         {
-            const string  url = "https://github.com/galadril/CaptureWolf/releases/latest";
+            const string url = "https://github.com/galadril/CaptureWolf/releases/latest";
             System.Diagnostics.Process.Start("explorer.exe", url);
+        }
+
+        private void btnPreview_Click(object sender, EventArgs e)
+        {
+            var previewImage = Handler.TakeSnapshot();
+            picPreview.Image = previewImage;
+        }
+
+        private void SetPreviewConfig()
+        {
+            var resolution = Properties.Settings.Default.Resolution;
+            if (string.IsNullOrEmpty(resolution))
+            {
+                return;
+            }
+
+            var parts = resolution.Split('x');
+            var width = int.Parse(parts[0].Trim());
+            var height = int.Parse(parts[1].Trim());
+            var frameSize = new Size(width, height);
+            Handler.FrameSize = frameSize;
+            Handler.WebCamName = Properties.Settings.Default.Camera;
         }
     }
 }
