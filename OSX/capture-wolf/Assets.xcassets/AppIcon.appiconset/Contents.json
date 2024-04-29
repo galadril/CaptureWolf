@@ -1,7 +1,7 @@
 {
   "images" : [
     {
-      "filename" : "16.png",
+      "filename" : "capture-wolf-16.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "16x16"
@@ -12,7 +12,7 @@
       "size" : "16x16"
     },
     {
-      "filename" : "32.png",
+      "filename" : "capture-wolf-32.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "32x32"
@@ -23,7 +23,7 @@
       "size" : "32x32"
     },
     {
-      "filename" : "128.png",
+      "filename" : "capture-wolf-128.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "128x128"
@@ -34,7 +34,7 @@
       "size" : "128x128"
     },
     {
-      "filename" : "256.png",
+      "filename" : "capture-wolf-256.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "256x256"
@@ -45,7 +45,7 @@
       "size" : "256x256"
     },
     {
-      "filename" : "512.png",
+      "filename" : "capture-wolf-512.png",
       "idiom" : "mac",
       "scale" : "1x",
       "size" : "512x512"
