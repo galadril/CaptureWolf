@@ -5,6 +5,12 @@
 		<TargetFramework>net8.0-windows7.0</TargetFramework>
 		<LangVersion>latest</LangVersion>
 		<PackageId>CaptureWolf</PackageId>
+		<Version>1.0.6</Version>
+		<Title>CaptureWolf</Title>
+		<Description>Welcome to CaptureWolf, the ultimate tool for catching those sneaky wolves who try to access your PC when you're away.</Description>
+		<Copyright>Mark Heinis</Copyright>
+		<PackageProjectUrl>https://github.com/galadril/CaptureWolf</PackageProjectUrl>
+		<PackageTags>wolf, capture, lock</PackageTags>
 	</PropertyGroup>
 
 	<ItemGroup>
