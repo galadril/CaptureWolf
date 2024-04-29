@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  VERSION: 1.0.10
+  VERSION: 1.0.11
 
 concurrency:
   group: ${{ github.ref }}
@@ -37,6 +37,17 @@ jobs:
 
     - name: Setup VS Dev Environment
       uses: seanmiddleditch/gha-setup-vsdevenv@v4
+
+    - name: Update assembly version in .csproj files
+      run: |
+        $projects = Get-ChildItem -Path ./Windows -Filter *.csproj -Recurse
+        foreach ($project in $projects) {
+          $content = Get-Content -Path $project.FullName -Raw
+          $content = $content -replace '(?<=<Version>)\d+\.\d+\.\d+', '${{ env.VERSION }}'
+          Set-Content -Path $project.FullName -Value $content
+          Write-Host "Updated AssemblyVersion in $($project.Name) to ${{ env.VERSION }}"
+        }
+      shell: pwsh
 
     - name: Update version and product code in .vdproj file
       run: |

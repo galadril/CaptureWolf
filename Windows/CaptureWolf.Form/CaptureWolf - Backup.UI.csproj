@@ -8,7 +8,7 @@
 		<DpiAwareness>PerMonitorV2</DpiAwareness>
 		<ApplicationIcon>icon.ico</ApplicationIcon>
 		<Title>CaptureWolf</Title>
-		<Version>1.0.6</Version>
+		<Version>$(VersionPrefix)</Version>
 		<Description>Welcome to CaptureWolf, the ultimate tool for catching those sneaky wolves who try to access your PC when you're away.</Description>
 		<Copyright>Mark Heinis</Copyright>
 		<PackageProjectUrl>https://github.com/galadril/CaptureWolf</PackageProjectUrl>
