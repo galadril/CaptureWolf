@@ -44,6 +44,7 @@ namespace CaptureWolf.UI
             picPreview = new PictureBox();
             lblHorizontalLine = new Label();
             btnPreview = new Controls.RoundedButton();
+            lblVersion = new Label();
             ((System.ComponentModel.ISupportInitialize)picPreview).BeginInit();
             SuspendLayout();
             // 
@@ -186,7 +187,7 @@ namespace CaptureWolf.UI
             picPreview.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             picPreview.Location = new Point(788, 531);
             picPreview.Name = "picPreview";
-            picPreview.Size = new Size(1034, 520);
+            picPreview.Size = new Size(1005, 506);
             picPreview.SizeMode = PictureBoxSizeMode.Zoom;
             picPreview.TabIndex = 14;
             picPreview.TabStop = false;
@@ -195,7 +196,7 @@ namespace CaptureWolf.UI
             // 
             lblHorizontalLine.Anchor = AnchorStyles.Left | AnchorStyles.Right;
             lblHorizontalLine.BorderStyle = BorderStyle.Fixed3D;
-            lblHorizontalLine.Location = new Point(11, 455);
+            lblHorizontalLine.Location = new Point(11, 423);
             lblHorizontalLine.Name = "lblHorizontalLine";
             lblHorizontalLine.Size = new Size(1835, 2);
             lblHorizontalLine.TabIndex = 15;
@@ -217,12 +218,25 @@ namespace CaptureWolf.UI
             btnPreview.UseVisualStyleBackColor = false;
             btnPreview.Click += btnPreview_Click;
             // 
+            // lblVersion
+            // 
+            lblVersion.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            lblVersion.BackColor = Color.FromArgb(0, 38, 71);
+            lblVersion.ForeColor = Color.White;
+            lblVersion.Location = new Point(188, 1096);
+            lblVersion.Margin = new Padding(9, 0, 9, 0);
+            lblVersion.Name = "lblVersion";
+            lblVersion.Size = new Size(1440, 70);
+            lblVersion.TabIndex = 17;
+            lblVersion.TextAlign = ContentAlignment.MiddleCenter;
+            // 
             // FrmSettings
             // 
             AutoScaleDimensions = new SizeF(20F, 48F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(0, 38, 71);
-            ClientSize = new Size(1857, 1106);
+            ClientSize = new Size(1857, 1175);
+            Controls.Add(lblVersion);
             Controls.Add(btnPreview);
             Controls.Add(btnLatestVersion);
             Controls.Add(btnReport);
@@ -293,5 +307,6 @@ namespace CaptureWolf.UI
         private Controls.RoundedButton btnLatestVersion;
         private Label lblHorizontalLine;
         private Controls.RoundedButton btnPreview;
+        private Label lblVersion;
     }
 }

@@ -62,8 +62,26 @@ namespace CaptureWolf.UI
             chkbWatermark.Checked = Properties.Settings.Default.Watermark;
 
             SetPreviewConfig();
+            ShowVersion();
+
+            var previewImage = Handler.TakeSnapshot();
+            picPreview.Image = previewImage;
             _isLoaded = true;
         }
+
+        private void ShowVersion()
+        {
+            var version1 = System.Reflection.Assembly.GetExecutingAssembly().GetName().Version;
+            if (version1 == null)
+            {
+                return;
+            }
+
+            var versionParts = version1.ToString().Split('.');
+            var version = string.Join('.', versionParts.Take(3));
+            lblVersion.Text = $@"Version: {version}";
+        }
+
 
         private void ComboBox_SelectedIndexChanged(object sender, EventArgs e)
         {
