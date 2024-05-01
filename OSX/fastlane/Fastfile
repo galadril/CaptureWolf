@@ -7,13 +7,13 @@ platform :mac do
     lane :release do
       prepare_signing
       build
-      dmg(path: "builds", output_path: "./release/capture-wolf.dmg")
+      dmg(path: "builds", output_path: "./release/CaptureWolf.dmg")
       remove_keychain
     end
 
     lane :test do
       build
-      dmg(path: "builds", output_path: "./release/capture-wolf.dmg")
+      dmg(path: "builds", output_path: "./release/CaptureWolf.dmg")
     end
 
     desc "Build the IOS Application"

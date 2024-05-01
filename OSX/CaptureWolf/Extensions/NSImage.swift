@@ -1,6 +1,6 @@
 //
 //  NSImage.swift
-//  capture-wolf
+//  CaptureWolf
 //
 //  Created by Ramon Klanke on 11/04/2024.
 //
