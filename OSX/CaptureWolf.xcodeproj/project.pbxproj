@@ -24,7 +24,7 @@
 
 /* Begin PBXFileReference section */
 		B906B0FB2BE0D54D0043A59C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		B9B1232A2BD2CA010026F074 /* capture-wolf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "capture-wolf.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B9B1232A2BD2CA010026F074 /* CaptureWolf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaptureWolf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9B1232D2BD2CA010026F074 /* capture_wolfApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = capture_wolfApp.swift; sourceTree = "<group>"; };
 		B9B1232F2BD2CA010026F074 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		B9B123312BD2CA040026F074 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -56,7 +56,7 @@
 		B9B123212BD2CA010026F074 = {
 			isa = PBXGroup;
 			children = (
-				B9B1232C2BD2CA010026F074 /* capture-wolf */,
+				B9B1232C2BD2CA010026F074 /* CaptureWolf */,
 				B9B1232B2BD2CA010026F074 /* Products */,
 				B9B1234C2BD2CD000026F074 /* Frameworks */,
 			);
@@ -65,12 +65,12 @@
 		B9B1232B2BD2CA010026F074 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				B9B1232A2BD2CA010026F074 /* capture-wolf.app */,
+				B9B1232A2BD2CA010026F074 /* CaptureWolf.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B9B1232C2BD2CA010026F074 /* capture-wolf */ = {
+		B9B1232C2BD2CA010026F074 /* CaptureWolf */ = {
 			isa = PBXGroup;
 			children = (
 				B9B123472BD2CB360026F074 /* Extensions */,
@@ -83,7 +83,7 @@
 				B906B0FB2BE0D54D0043A59C /* Info.plist */,
 				B9B123332BD2CA040026F074 /* Preview Content */,
 			);
-			path = "capture-wolf";
+			path = CaptureWolf;
 			sourceTree = "<group>";
 		};
 		B9B123332BD2CA040026F074 /* Preview Content */ = {
@@ -141,9 +141,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		B9B123292BD2CA010026F074 /* capture-wolf */ = {
+		B9B123292BD2CA010026F074 /* CaptureWolf */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = B9B123392BD2CA040026F074 /* Build configuration list for PBXNativeTarget "capture-wolf" */;
+			buildConfigurationList = B9B123392BD2CA040026F074 /* Build configuration list for PBXNativeTarget "CaptureWolf" */;
 			buildPhases = (
 				B9B123262BD2CA010026F074 /* Sources */,
 				B9B123272BD2CA010026F074 /* Frameworks */,
@@ -153,9 +153,9 @@
 			);
 			dependencies = (
 			);
-			name = "capture-wolf";
-			productName = "capture-wolf";
-			productReference = B9B1232A2BD2CA010026F074 /* capture-wolf.app */;
+			name = CaptureWolf;
+			productName = CaptureWolf;
+			productReference = B9B1232A2BD2CA010026F074 /* CaptureWolf.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -173,7 +173,7 @@
 					};
 				};
 			};
-			buildConfigurationList = B9B123252BD2CA010026F074 /* Build configuration list for PBXProject "capture-wolf" */;
+			buildConfigurationList = B9B123252BD2CA010026F074 /* Build configuration list for PBXProject "CaptureWolf" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -186,7 +186,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B9B123292BD2CA010026F074 /* capture-wolf */,
+				B9B123292BD2CA010026F074 /* CaptureWolf */,
 			);
 		};
 /* End PBXProject section */
@@ -276,7 +276,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "capture-wolf/Info.plist";
+				INFOPLIST_FILE = CaptureWolf/Info.plist;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -335,7 +335,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = "capture-wolf/Info.plist";
+				INFOPLIST_FILE = CaptureWolf/Info.plist;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -350,12 +350,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "capture-wolf/capture_wolf.entitlements";
+				CODE_SIGN_ENTITLEMENTS = CaptureWolf/capture_wolf.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 32;
-				DEVELOPMENT_ASSET_PATHS = "\"capture-wolf/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"CaptureWolf/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = FN7VC8ZTQF;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -385,12 +385,12 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = "capture-wolf/capture_wolf.entitlements";
+				CODE_SIGN_ENTITLEMENTS = CaptureWolf/capture_wolf.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Developer ID Application";
 				CODE_SIGN_STYLE = Manual;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 32;
-				DEVELOPMENT_ASSET_PATHS = "\"capture-wolf/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"CaptureWolf/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				"DEVELOPMENT_TEAM[sdk=macosx*]" = FN7VC8ZTQF;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -418,7 +418,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		B9B123252BD2CA010026F074 /* Build configuration list for PBXProject "capture-wolf" */ = {
+		B9B123252BD2CA010026F074 /* Build configuration list for PBXProject "CaptureWolf" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B9B123372BD2CA040026F074 /* Debug */,
@@ -427,7 +427,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		B9B123392BD2CA040026F074 /* Build configuration list for PBXNativeTarget "capture-wolf" */ = {
+		B9B123392BD2CA040026F074 /* Build configuration list for PBXNativeTarget "CaptureWolf" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				B9B1233A2BD2CA040026F074 /* Debug */,

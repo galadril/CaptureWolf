@@ -1,6 +1,6 @@
 //
 //  AppleScript.swift
-//  capture-wolf
+//  CaptureWolf
 //
 //  Created by Ramon Klanke on 11/04/2024.
 //
@@ -12,7 +12,7 @@ func minimize(value: Bool = true) {
     DispatchQueue.global(qos: .background).async {
         let lockScript = """
             tell application "System Events"
-                tell process "capture-wolf"
+                tell process "CaptureWolf"
                         set frontWindow to the first window
                         tell frontWindow
                             set value of attribute "AXMinimized" to \(value)

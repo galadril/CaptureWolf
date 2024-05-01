@@ -1,6 +1,6 @@
 //
 //  CaptureModel.swift
-//  capture-wolf
+//  CaptureWolf
 //
 //  Created by Ramon Klanke on 18/03/2024.
 //

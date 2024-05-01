@@ -1,6 +1,6 @@
 //
-//  capture_wolfApp.swift
-//  capture-wolf
+//  CaptureWolfApp.swift
+//  CaptureWolf
 //
 //  Created by Ramon Klanke on 19/04/2024.
 //
@@ -8,7 +8,7 @@
 import SwiftUI
 
 @main
-struct capture_wolfApp: App {
+struct CaptureWolfApp: App {
     var body: some Scene {
         WindowGroup {
             CaptureView()

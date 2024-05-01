@@ -1,6 +1,6 @@
 //
 //  ContentView.swift
-//  capture-wolf
+//  CaptureWolf
 //
 //  Created by Ramon Klanke on 19/04/2024.
 //

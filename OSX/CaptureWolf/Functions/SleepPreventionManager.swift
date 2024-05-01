@@ -1,6 +1,6 @@
 //
 //  SleepPreventionManager.swift
-//  capture-wolf
+//  CaptureWolf
 //
 //  Created by Ramon Klanke on 10/04/2024.
 //
