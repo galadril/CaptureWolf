@@ -1,4 +1,4 @@
-﻿name: Build
+name: Build
 
 on:
   push:
@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 env:
-  VERSION: 1.0.16
+  VERSION: 1.0.17
 
 concurrency:
   group: ${{ github.ref }}
@@ -16,16 +16,8 @@ jobs:
   build-windows:
     runs-on: windows-latest
 
-    permissions:
-      contents: write
-
     steps:
     - uses: actions/checkout@v4
-
-    - name: Setup Git user
-      run: |
-        git config --local user.name "GitHub Actions"
-        git config --local user.email "<>"
 
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
@@ -85,24 +77,13 @@ jobs:
       run:
         working-directory: ${{ github.workspace }}/OSX
 
-    permissions:
-      contents: write
-      
     steps:
       - name: Checkout files
         uses: actions/checkout@v4
 
-      - name: Setup Git user
-        run: |
-          git config --local user.name "GitHub Actions"
-          git config --local user.email "<>"
-
       - uses: actions/setup-node@v4
         with:
           node-version: 21
-      
-      - name: List Xcode installations
-        run: sudo ls -1 /Applications | grep "Xcode"
       
       - name: Select XCode version
         uses: maxim-lobanov/setup-xcode@v1.6.0
@@ -125,11 +106,24 @@ jobs:
       - name: Install dependencies
         run: bundle install
 
-      - name: Bump ios version
-        uses: yanamura/ios-bump-version@v1
-        with:
-          version: ${{ env.VERSION }}
-          project-path: OSX
+      - name: Update Info.plist and project.pbxproj files
+        run: |
+          VERSION=${{ env.VERSION }}
+          VERSION_NO_DOTS=$(echo $VERSION | tr -d '.')
+          echo "Version without dots: $VERSION_NO_DOTS"
+          echo "Version with dots: $VERSION"
+          find . -name 'Info.plist' | while read file; do
+            echo "Processing file: $file"
+            sed -i '' -e "s/<key>CFBundleVersion<\/key>[[:space:]]*<string>[[:digit:]]*<\/string>/<key>CFBundleVersion<\/key>\
+            <string>$VERSION_NO_DOTS<\/string>/g" "$file"
+            sed -i '' -e "s/<key>CFBundleShortVersionString<\/key>[[:space:]]*<string>[[:digit:]]*\.[[:digit:]]*\.[[:digit:]]*<\/string>/<key>CFBundleShortVersionString<\/key>\
+            <string>$VERSION<\/string>/g" "$file"
+          done
+          
+          echo "Updating project.pbxproj"
+          sed -i '' -e "s/CURRENT_PROJECT_VERSION = [[:digit:]]*/CURRENT_PROJECT_VERSION = $VERSION_NO_DOTS/g" ./CaptureWolf.xcodeproj/project.pbxproj
+          sed -i '' -e "s/MARKETING_VERSION = .*;/MARKETING_VERSION = $VERSION;/g" ./CaptureWolf.xcodeproj/project.pbxproj
+        shell: bash
 
       - name: Deploy app
         run: bundle exec fastlane mac release --verbose
@@ -144,15 +138,9 @@ jobs:
         with:
           name: osx-installer
           path: ./OSX/release/
-      
-      - name: "Show changes"
-        run: |
-          git status
-
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
 
   create-release:
+    if: github.ref == 'refs/heads/main'
     needs: [build-windows, build-osx]
     runs-on: ubuntu-latest
     steps:
