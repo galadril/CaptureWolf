@@ -125,12 +125,6 @@ jobs:
       - name: Install dependencies
         run: bundle install
 
-      # - name: Bump ios version
-      #   uses: yanamura/ios-bump-version@v1
-      #   with:
-      #     version: ${{ env.VERSION }}
-      #     project-path: OSX
-
       - name: Update Info.plist and project.pbxproj files
         run: |
           VERSION=${{ env.VERSION }}
@@ -144,8 +138,10 @@ jobs:
             sed -i '' -e "s/<key>CFBundleShortVersionString<\/key>[[:space:]]*<string>[[:digit:]]*\.[[:digit:]]*\.[[:digit:]]*<\/string>/<key>CFBundleShortVersionString<\/key>\
             <string>$VERSION<\/string>/g" "$file"
           done
+          
           echo "Updating project.pbxproj"
           sed -i '' -e "s/CURRENT_PROJECT_VERSION = [[:digit:]]*/CURRENT_PROJECT_VERSION = $VERSION_NO_DOTS/g" ./CaptureWolf.xcodeproj/project.pbxproj
+          sed -i '' -e "s/MARKETING_VERSION = [[:digit:]]*\.[[:digit:]]*\.[[:digit:]]*/MARKETING_VERSION = $VERSION/g" ./CaptureWolf.xcodeproj/project.pbxproj
         shell: bash
 
       - name: Deploy app
@@ -161,13 +157,6 @@ jobs:
         with:
           name: osx-installer
           path: ./OSX/release/
-      
-      - name: "Show changes"
-        run: |
-          git status
-
-      - name: Commit changes
-        uses: stefanzweifel/git-auto-commit-action@v5
 
   create-release:
     needs: [build-windows, build-osx]
