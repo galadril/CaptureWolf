@@ -141,7 +141,7 @@ jobs:
           
           echo "Updating project.pbxproj"
           sed -i '' -e "s/CURRENT_PROJECT_VERSION = [[:digit:]]*/CURRENT_PROJECT_VERSION = $VERSION_NO_DOTS/g" ./CaptureWolf.xcodeproj/project.pbxproj
-          sed -i '' -e "s/MARKETING_VERSION = [[:digit:]]*\.[[:digit:]]*\.[[:digit:]]*/MARKETING_VERSION = $VERSION/g" ./CaptureWolf.xcodeproj/project.pbxproj
+          sed -i '' -e "s/MARKETING_VERSION = .*/MARKETING_VERSION = $VERSION/g" ./CaptureWolf.xcodeproj/project.pbxproj
         shell: bash
 
       - name: Deploy app
