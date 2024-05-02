@@ -131,6 +131,9 @@ jobs:
       #     version: ${{ env.VERSION }}
       #     project-path: OSX
 
+      - name: List directory contents
+        run: ls -al
+
       - name: Update Info.plist and project.pbxproj files
         run: |
           VERSION=${{ env.VERSION }}
