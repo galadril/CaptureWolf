@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		B906B0FC2BE0D54D0043A59C /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B906B0FB2BE0D54D0043A59C /* Info.plist */; };
 		B9B1232E2BD2CA010026F074 /* capture_wolfApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B1232D2BD2CA010026F074 /* capture_wolfApp.swift */; };
 		B9B123302BD2CA010026F074 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9B1232F2BD2CA010026F074 /* ContentView.swift */; };
 		B9B123322BD2CA040026F074 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B9B123312BD2CA040026F074 /* Assets.xcassets */; };
@@ -23,7 +22,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		B906B0FB2BE0D54D0043A59C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B9B1232A2BD2CA010026F074 /* CaptureWolf.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CaptureWolf.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B9B1232D2BD2CA010026F074 /* capture_wolfApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = capture_wolfApp.swift; sourceTree = "<group>"; };
 		B9B1232F2BD2CA010026F074 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -56,7 +54,6 @@
 		B9B123212BD2CA010026F074 = {
 			isa = PBXGroup;
 			children = (
-				B906B0FB2BE0D54D0043A59C /* Info.plist */,
 				B9B1232C2BD2CA010026F074 /* CaptureWolf */,
 				B9B1232B2BD2CA010026F074 /* Products */,
 				B9B1234C2BD2CD000026F074 /* Frameworks */,
@@ -198,7 +195,6 @@
 			files = (
 				B9B123352BD2CA040026F074 /* Preview Assets.xcassets in Resources */,
 				B9B123322BD2CA040026F074 /* Assets.xcassets in Resources */,
-				B906B0FC2BE0D54D0043A59C /* Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,8 +271,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = Info.plist;
+				GENERATE_INFOPLIST_FILE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -334,8 +329,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = Info.plist;
+				GENERATE_INFOPLIST_FILE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 14.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
