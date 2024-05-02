@@ -131,16 +131,13 @@ jobs:
       #     version: ${{ env.VERSION }}
       #     project-path: OSX
 
-      - name: List directory contents
-        run: ls -al
-
       - name: Update Info.plist and project.pbxproj files
         run: |
           VERSION=${{ env.VERSION }}
           VERSION_NO_DOTS=$(echo $VERSION | tr -d '.')
           echo "Version without dots: $VERSION_NO_DOTS"
           echo "Version with dots: $VERSION"
-          find OSX -name 'Info.plist' | while read file; do
+          find . -name 'Info.plist' | while read file; do
             echo "Processing file: $file"
             sed -i '' -e "s/<key>CFBundleVersion<\/key>[[:space:]]*<string>[[:digit:]]*<\/string>/<key>CFBundleVersion<\/key>\
             <string>$VERSION_NO_DOTS<\/string>/g" "$file"
@@ -148,7 +145,7 @@ jobs:
             <string>$VERSION<\/string>/g" "$file"
           done
           echo "Updating project.pbxproj"
-          sed -i '' -e "s/CURRENT_PROJECT_VERSION = [[:digit:]]*/CURRENT_PROJECT_VERSION = $VERSION_NO_DOTS/g" ./OSX/CaptureWolf.xcodeproj/project.pbxproj
+          sed -i '' -e "s/CURRENT_PROJECT_VERSION = [[:digit:]]*/CURRENT_PROJECT_VERSION = $VERSION_NO_DOTS/g" ./CaptureWolf.xcodeproj/project.pbxproj
         shell: bash
 
       - name: Deploy app
