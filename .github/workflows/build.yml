@@ -137,7 +137,7 @@ jobs:
           VERSION_NO_DOTS=$(echo $VERSION | tr -d '.')
           echo "Version without dots: $VERSION_NO_DOTS"
           echo "Version with dots: $VERSION"
-          find ./OSX -name 'Info.plist' | while read file; do
+          find OSX -name 'Info.plist' | while read file; do
             echo "Processing file: $file"
             sed -i '' -e "s/<key>CFBundleVersion<\/key>[[:space:]]*<string>[[:digit:]]*<\/string>/<key>CFBundleVersion<\/key>\
             <string>$VERSION_NO_DOTS<\/string>/g" "$file"
