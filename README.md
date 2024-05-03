@@ -1,10 +1,6 @@
-
-![CaptureWolf](https://github.com/galadril/CaptureWolf/assets/14561640/7d93e3b2-3b58-4022-b535-e8aa04c15f4b)
-
 <p align="center">
   <img src="https://github.com/galadril/CaptureWolf/assets/14561640/7d93e3b2-3b58-4022-b535-e8aa04c15f4b">
 </p>
-
 
 # 🐺 CaptureWolf 🐺
 
