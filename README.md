@@ -1,9 +1,13 @@
 
 # 🐺 CaptureWolf 🐺
 <img src="https://github.com/galadril/CaptureWolf/assets/14561640/7d93e3b2-3b58-4022-b535-e8aa04c15f4b" align="right" height="250" width="250" />
-Welcome to CaptureWolf, your ultimate solution for catching those sneaky wolves attempting to access your PC when you're away.
+Welcome to CaptureWolf, your ultimate solution for catching those sneaky wolves attempting to access your PC when you're away. </ br> 
 
 CaptureWolf is an innovative application crafted to safeguard your PC from unauthorized access. It creates a deceptive impression that your PC is unlocked, enticing potential intruders. However, when they attempt to breach security, CaptureWolf swiftly takes action!
+<!-- Add some space here -->
+<div style="clear: right;"></div>
+
+
 
 ## 🚀 How does it work?
 
