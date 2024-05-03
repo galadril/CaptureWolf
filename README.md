@@ -1,5 +1,6 @@
 
-![CaptureWolf](https://github.com/galadril/CaptureWolf/blob/main/Windows/CaptureWolf/icon.png?raw=true)
+![CaptureWolf](https://github.com/galadril/CaptureWolf/assets/14561640/61b0e076-ae31-48fb-aa24-bc06938c4db2)
+
 
 # 🐺 CaptureWolf 🐺
 
