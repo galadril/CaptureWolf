@@ -7,7 +7,7 @@ Welcome to CaptureWolf, your ultimate solution for catching those sneaky wolves 
  
 
 CaptureWolf is an innovative application crafted to safeguard your PC from unauthorized access. It creates a deceptive impression that your PC is unlocked, enticing potential intruders. However, when they attempt to breach security, CaptureWolf swiftly takes action!
-<br><br>
+<br><br><br>
 
 
 
