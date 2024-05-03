@@ -1,6 +1,5 @@
 
-![CaptureWolf](https://github.com/galadril/CaptureWolf/assets/14561640/61b0e076-ae31-48fb-aa24-bc06938c4db2)
-
+![CaptureWolf](https://github.com/galadril/CaptureWolf/assets/14561640/7d93e3b2-3b58-4022-b535-e8aa04c15f4b)
 
 # 🐺 CaptureWolf 🐺
 
