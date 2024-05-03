@@ -2,17 +2,6 @@
 ![CaptureWolf](https://github.com/galadril/CaptureWolf/assets/14561640/7d93e3b2-3b58-4022-b535-e8aa04c15f4b)
 
 
-- [🐺 CaptureWolf 🐺](#---capturewolf---)
-  * [🎯 What is CaptureWolf?](#---what-is-capturewolf-)
-  * [🚀 How does it work?](#---how-does-it-work-)
-  * [🎁 Installation](#---installation)
-  * [🐑 Sheep Stick Together!](#---sheep-stick-together-)
-  * [!!! Extra MAC userguide !!!](#----extra-mac-userguide----)
-  * [🤝 Contributing](#---contributing)
-  * [🌟 Show Your Support](#---show-your-support)
-  * [📧 Contact](#---contact)
-
-
 # 🐺 CaptureWolf 🐺
 
 Welcome to CaptureWolf, your ultimate solution for catching those sneaky wolves attempting to access your PC when you're away.
