@@ -19,7 +19,7 @@ public static class Handler
     public const byte KEYEVENTF_KEYUP = 0x02;
     public const byte VK_LWIN = 0x5B;
     public const byte VK_D = 0x44;
-    
+
     public static Size FrameSize { get; set; }
     public static string WebCamName { get; set; }
 
@@ -48,11 +48,15 @@ public static class Handler
     {
         _onlyOnce = false; //reset
         onCapture = onCaptureEvent;
-        
+
         try
         {
-            Hook.GlobalEvents().MouseMove += GlobalHook_MouseMove;
-            Hook.GlobalEvents().KeyUp += GlobalHook_KeyUp;
+            Hook.GlobalEvents().MouseMove += GlobalHook_MouseDetected;
+            Hook.GlobalEvents().MouseClick += GlobalHook_MouseDetected;
+            Hook.GlobalEvents().MouseDoubleClick += GlobalHook_MouseDetected;
+            Hook.GlobalEvents().MouseDown += GlobalHook_MouseDetected;
+            Hook.GlobalEvents().KeyUp += GlobalHook_KeyDetected;
+            Hook.GlobalEvents().KeyDown += GlobalHook_KeyDetected;
         }
         catch (Exception ex)
         {
@@ -60,7 +64,7 @@ public static class Handler
         }
     }
 
-    private static void GlobalHook_MouseMove(object sender, MouseEventArgs e)
+    private static void GlobalHook_MouseDetected(object sender, MouseEventArgs e)
     {
         try
         {
@@ -77,7 +81,7 @@ public static class Handler
         }
     }
 
-    private static void GlobalHook_KeyUp(object sender, KeyEventArgs e)
+    private static void GlobalHook_KeyDetected(object sender, KeyEventArgs e)
     {
         try
         {
@@ -96,15 +100,12 @@ public static class Handler
 
     private static void UnhookEvents()
     {
-        try
-        {
-            Hook.GlobalEvents().MouseMove -= GlobalHook_MouseMove;
-            Hook.GlobalEvents().KeyUp -= GlobalHook_KeyUp;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine(ex);
-        }
+        try { Hook.GlobalEvents().MouseMove -= GlobalHook_MouseDetected; } catch (Exception) { /* ignored */ }
+        try { Hook.GlobalEvents().MouseClick -= GlobalHook_MouseDetected; } catch (Exception) { /* ignored */ }
+        try { Hook.GlobalEvents().MouseDoubleClick -= GlobalHook_MouseDetected; } catch (Exception) { /* ignored */ }
+        try { Hook.GlobalEvents().MouseDown -= GlobalHook_MouseDetected; } catch (Exception) { /* ignored */ }
+        try { Hook.GlobalEvents().KeyUp -= GlobalHook_KeyDetected; } catch (Exception) { /* ignored */ }
+        try { Hook.GlobalEvents().KeyDown -= GlobalHook_KeyDetected; } catch (Exception) { /* ignored */ }
     }
 
     [DllImport("user32.dll")]
@@ -112,7 +113,7 @@ public static class Handler
 
     [DllImport("user32.dll")]
     public static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, int dwExtraInfo);
-    
+
     public static void MinimizeAll()
     {
         keybd_event(VK_LWIN, 0, 0, 0);
@@ -120,7 +121,7 @@ public static class Handler
         keybd_event(VK_D, 0, KEYEVENTF_KEYUP, 0);
         keybd_event(VK_LWIN, 0, KEYEVENTF_KEYUP, 0);
     }
-    
+
     public static void MinimizeThisApplication()
     {
         ShowWindow(Process.GetCurrentProcess().MainWindowHandle, SwMinimize);
